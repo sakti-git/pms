@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <title>Project Management System</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: rgb(20, 5, 20);">
+        <a class="navbar-brand">Project Management System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Projects <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="">Profile <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Sign Out</button>
+            </form>
+        </div>
+    </nav>
+
+    <form action="/" id="form-filter" method="GET" style="padding-inline: 50px;">
+        <div class="card">
+            <div class="card-header">
+                <h2>Projects</h2>
+                <hr>
+                <h3>Filters</h3>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col" style="padding-left: 100px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="cekId" name="checkId">
+                            <label class="form-check-label" for="id">
+                                ID
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-10" style="padding-right: 200px;">
+                        <div class="form-group">
+                            <input type="text" name="id" class="form-control" id="id" placeholder="ID">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col" style="padding-left: 100px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="cekName" name="checkName">
+                            <label class="form-check-label" for="name">
+                                Name
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-10" style="padding-right: 200px;">
+                        <div class="form-group">
+                            <input type="text" name="name" class="form-control" id="name" placeholder="Name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col" style="padding-left: 100px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="cekName" name="checkName">
+                            <label class="form-check-label" for="name">
+                                Member
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-10" style="padding-right: 200px;">
+                        <div class="form-group">
+                            <select name="squad" id="squad" class="custom-select custom-select">
+                                <option selected>Choose a member ...</option>
+                                <!-- <option name="squad" class="form-control" value="true">True</option>
+                            <option name="squad" class="form-control" value="false">False</option> -->
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 100px;">
+                    <button type="submit" class="btn btn-primary">Search</button></br></br>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="form-check">
+                            <label class="form-check-label" for="name">
+                                Columns
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-10">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="cekColId"
+                                name="checkColId">
+                            <label class="form-check-label" for="id">
+                                ID
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="cekColName"
+                                name="checkColName">
+                            <label class="form-check-label" for="name">
+                                Name
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="cekColMembers"
+                                name="checkColMembers">
+                            <label class="form-check-label" for="members">
+                                Members
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="" <button class="btn btn-primary">Apply</button> </a>
+
+                <div class="container" style="padding-top: 20px;"></div>
+
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col" colspan="2">Name</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th scope="row"></th>
+                            <td colspan="2"></td>
+                            <td>
+                                <button class="btn btn-success"> <a href="" style="color: white;">
+                                        Edit
+                                    </a></button>
+                                <button class="btn btn-danger"> <a href="" style="color: white;">
+                                        Delete
+                                    </a></button></td>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <a href="/add" <button class="btn btn-primary">ADD</button> </a>
+
+            </div>
+
+        </div>
+        </div>
+    </form>
+
+</body>
+
+</html>

@@ -54,36 +54,43 @@
 
 <body>
     <form class="form-signin" action="/login" method="POST">
-        <div class="text-center mb-4">
+        <!-- <div class="text-center mb-4">
             <img class="mb-4" src="/images/login.jpg" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">PROJECT MANAGEMENT SYSTEM</h1>
+        </div> -->
+        <div class="card-header" style="text-align: center; background-image: cross-fade();">Login</div>
+        <div class="card-body">
+            <h2 class="card-title" style="text-align: center;">PROJECT MANAGEMENT SYSTEM</h2>
+            <div class="form-label-group">
+                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required=""
+                    autofocus="" name="email">
+                <label for="inputEmail">Email address</label>
+            </div>
+
+            <div class="form-label-group">
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required=""
+                    name="password">
+                <label for="inputPassword">Password</label>
+            </div>
+
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <% if(loginInfo.length > 0) { %>
+            <div class="alert alert-danger" role="alert">
+                <%= loginInfo %>
+            </div>
+            <% } %>
+            <p class="mt-5 mb-3 text-muted text-center">© 2020 - Sakti</p>
         </div>
 
-        <div class="form-label-group">
-            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required=""
-                autofocus="" name="email">
-            <label for="inputEmail">Email address</label>
-        </div>
 
-        <div class="form-label-group">
-            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required=""
-                name="password">
-            <label for="inputPassword">Password</label>
-        </div>
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
-            </label>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        <% if(loginInfo.length > 0) { %>
-        <div class="alert alert-danger" role="alert">
-            <%= loginInfo %>
-        </div>
-        <% } %>
-  <p class="mt-5 mb-3 text-muted text-center">© M. Sakti Firmansyah - 2020</p>
-</form>
+    </form>
 
 
-</body></html>
+</body>
+
+</html>

@@ -23,12 +23,11 @@ module.exports = (db) => {
       };
 
       bcrypt.compare(password, data.rows[0].password, function (err, isValid) {
-        console.log(isValid)
+        
         if (err) {
           req.flash('loginInfo', 'Ooops... Something Wrong, please call administrator!');
           return res.redirect('/');
-
-        };
+        }
 
         if (!isValid) {
           req.flash('loginInfo', 'Wrong email or password');

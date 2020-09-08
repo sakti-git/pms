@@ -18,6 +18,7 @@ const pool = new Pool({
 
 var indexRouter = require('./routes/index')(pool);
 var projectsRouter = require('./routes/projects')(pool);
+var profileRouter = require('./routes/profile')(pool);
 var usersRouter = require('./routes/users');
 
 var app = express();
@@ -32,13 +33,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());  
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
-  secret: 'mosafir'
+  secret: 'rahasia'
 }))
 app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/projects', projectsRouter);
+app.use('/profile', profileRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

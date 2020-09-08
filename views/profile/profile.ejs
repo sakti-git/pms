@@ -1,0 +1,100 @@
+<% include ../partials/header %>
+
+<form id="form-filter" method="POST" style="padding-inline: 50px;">
+    <div class="card">
+        <div class="card-header">
+            <h2>Profile</h2>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="email">
+                            Email
+                        </label>
+                    </div>
+                </div>
+                <div class="col-10" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <input type="text" name="email" class="form-control" id="email" value="<%= data.email %>" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="name">
+                            Password
+                        </label>
+                    </div>
+                </div>
+                <div class="col-10" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <input type="text" name="password" class="form-control" id="password" placeholder="Password" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="position">
+                            Position
+                        </label>
+                    </div>
+                </div>
+                <div class="col-10" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="manager" name="position" value="Manager" class="custom-control-input" <%= data.position == 'Manager' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="manager">Manager</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="softDev" name="position" value="Software Developer" class="custom-control-input" <%= data.position == 'Software Developer' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="softDev">Software Developer</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="qa" name="position" value="Quality Assurance" class="custom-control-input" <%= data.position == 'Quality Assurance' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="qa">Quality Assurance</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="position">
+                            Type
+                        </label>
+                    </div>
+                </div>
+                <div class="col-10" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="fulltime" name="contract" value="fulltime" class="custom-control-input" <%= data.contract == 'fulltime' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="fulltime">Full Time Contract</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="parttime" name="contract" value="parttime" class="custom-control-input" <%= data.contract == 'parttime' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="parttime">Part Time Contract</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </br>
+            
+            <div class="col" style="padding-left: 100px;">
+                <button type="submit" class="btn btn-primary">Update</button></br></br>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+</form>
+
+<% include ../partials/footer %>

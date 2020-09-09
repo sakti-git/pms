@@ -32,8 +32,6 @@ module.exports = (db) => {
         bcrypt.hash(password, saltRounds, (err, hash) => {
             if (err) return res.send(err)
             let sql = `UPDATE users SET password = '${hash}', position = '${position}', contract = '${contract}' WHERE email = '${user.email}'`
-            console.log('pos', position);
-            console.log('con', contract);
             db.query(sql, (err) => {
                 if (err) return res.send(err)
             })

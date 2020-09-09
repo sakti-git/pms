@@ -1,0 +1,60 @@
+<% include ../partials/header %>
+
+<form action="" id="form-filter" method="POST" style="padding-inline: 50px;">
+    <div class="card">
+        <div class="card-header">
+            <h2>Add Projects</h2>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="addProjectName">
+                            Name
+                        </label>
+                    </div>
+                </div>
+                <div class="col-10" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <input type="text" name="addProjectName" class="form-control" id="addProjectName"
+                            placeholder="Project Name">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="addProjectMember">
+                            Members
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-10">
+                    <% data.forEach ((item,index) => { %>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="members" id="members<%= index + 1%>"
+                            value="<%= item.userid %>">
+                        <label class="form-check-label" for="members<%= index + 1%>">
+                            <%= item.fullname %>
+                        </label>
+                    </div>
+                    <% }) %>
+                </div>
+            </div>
+
+            <div class="col" style="padding-left: 100px; padding-top: 10px;">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a href="/projects" <button class="btn btn-warning">Back</button> </a>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+</form>
+
+<% include ../partials/footer %>

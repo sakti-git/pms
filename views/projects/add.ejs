@@ -1,5 +1,18 @@
 <% include ../partials/header %>
 
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item <%= link == 'projects' ? 'active' : '' %>">
+            <a class="nav-link" href="/projects">Projects <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item <%= link == 'profile' ? 'active' : '' %>">
+            <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+    <a href="/logout"><button class="btn btn-outline-success tombol sign-out my-2 my-sm-0">Sign Out</button></a>
+</div>
+</nav>
+
 <form action="" id="form-filter" method="POST" style="padding-inline: 50px;">
     <div class="card">
         <div class="card-header">

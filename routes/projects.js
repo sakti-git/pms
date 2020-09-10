@@ -34,13 +34,13 @@ module.exports = (db) => {
         }
 
         if (temp.length > 0) {
-            getData += `WHERE ${temp.join(" AND ")}`
+            getData += ` WHERE ${temp.join(" AND ")}`
         }
 
         getData += `) AS projectname`;
 
         db.query(getData, (err, totaldata) => {
-            if (err) return res.json(err);
+            if (err) return res.json(err)
 
             //pagination
             const url = req.url == '/' ? '/?page=1' : req.url;
@@ -61,12 +61,13 @@ module.exports = (db) => {
             getData += ` GROUP BY projects.projectid ORDER BY projectid ASC LIMIT ${limit} OFFSET ${offset};`
 
             db.query(getData, (err, dataProject) => {
-                if (err) return res.json(err);
+                if (err) return res.json(err) 
 
                 let getUser = `SELECT userid, concat(firstname,' ',lastname) as fullname FROM users;`;
 
                 db.query(getUser, (err, dataUser) => {
                     if (err) return res.json(err)
+
                     res.render('projects/view', {
                         link,
                         url,

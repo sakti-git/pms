@@ -1,0 +1,145 @@
+<form action="/projects" id="form-filter" method="GET" style="padding-inline: 50px;">
+    <div class="card">
+        <div class="card-header">
+            <h2>Members</h2>
+            <hr>
+            <h3>Filters</h3>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="cekId" name="checkId">
+                        <label class="form-check-label" for="id">
+                            ID
+                        </label>
+                    </div>
+                </div>
+                <div class="col-9" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <input type="text" name="membersId" class="form-control" id="id" placeholder="ID">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="cekName" name="checkName">
+                        <label class="form-check-label" for="name">
+                            Name
+                        </label>
+                    </div>
+                </div>
+                <div class="col-9" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <input type="text" name="membersName" class="form-control" id="name" placeholder="Name">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="cekPosition"
+                            name="checkPosition">
+                        <label class="form-check-label" for="name">
+                            Position
+                        </label>
+                    </div>
+                </div>
+                <div class="col-9" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <select name="membersPosition" id="member" class="custom-select custom-select">
+                            <option selected disabled>Choose a position ...</option>
+
+                            <option value=""></option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col" style="padding-left: 100px;">
+                <button type="submit" class="btn btn-primary">Search</button></br></br>
+            </div>
+</form>
+
+<form class="form-inline" action="/projects/option" method="POST" style="padding-left: 15px;">
+    <div class="row">
+        <label class="form-check-label" for="name">
+            <h4>Option Columns</h4>
+        </label>
+
+        <div class="form-check form-check-inline" style="padding-left: 70px;">
+            <input class="form-check-input" type="checkbox" value="true" id="cekColId" name="checkColId">
+            <label class="form-check-label" for="id">
+                ID
+            </label>
+        </div>
+        <div class="form-check form-check-inline" style="padding-left: 20px;">
+            <input class="form-check-input" type="checkbox" value="true" id="cekColName" name="checkColName">
+            <label class="form-check-label" for="name">
+                Member Name
+            </label>
+        </div>
+        <div class="form-check form-check-inline" style="padding-left: 20px;">
+            <input class="form-check-input" type="checkbox" value="true" id="cekColPosition" name="checkColPosition">
+            <label class="form-check-label" for="position">
+                Position
+            </label>
+        </div>
+        <div class="form-check form-check-inline" style="padding-left: 20px;">
+            <button class="btn btn-primary">Apply</button></a>
+        </div>
+
+    </div>
+
+    </br>
+</form>
+
+<div class="container" style="padding-top: 20px;"></div>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Project Name</th>
+            <th>Member</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <th></th>
+            <td></td>
+            <td></td>
+            <td>
+                <button class="btn btn-success"><a href="" style="color: white;">
+                        Edit
+                    </a></button>
+                <button class="btn btn-danger" onclick="return confirm('Are you sure want to DELETE ?')"><a href=""
+                        style="color: white;">
+                        Delete
+                    </a></button>
+            </td>
+        </tr>
+    </tbody>
+
+</table>
+
+<nav aria-label="...">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="">Previous</a>
+        </li>
+        <li class="page-item"><a class="page-link" href=""></a>
+        </li>
+        <li class="page-item"> <a class="page-link disabled" href="">Next</a>
+        </li>
+    </ul>
+</nav>
+
+<a href="/projects/add" <button class="btn btn-primary">ADD</button> </a>

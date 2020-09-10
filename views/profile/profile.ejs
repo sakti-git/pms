@@ -1,5 +1,18 @@
 <% include ../partials/header %>
 
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item <%= link == 'projects' ? 'active' : '' %>">
+            <a class="nav-link" href="/projects">Projects <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item <%= link == 'profile' ? 'active' : '' %>">
+            <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+    <a href="/logout"><button class="btn btn-outline-success tombol sign-out my-2 my-sm-0">Sign Out</button></a>
+</div>
+</nav>
+
 <form id="form-filter" method="POST" style="padding-inline: 50px;">
     <div class="card">
         <div class="card-header">
@@ -18,7 +31,8 @@
                 </div>
                 <div class="col-10" style="padding-right: 200px;">
                     <div class="form-group">
-                        <input type="text" name="email" class="form-control" id="email" value="<%= data.email %>" readonly>
+                        <input type="text" name="email" class="form-control" id="email" value="<%= data.email %>"
+                            readonly>
                     </div>
                 </div>
             </div>
@@ -33,7 +47,8 @@
                 </div>
                 <div class="col-10" style="padding-right: 200px;">
                     <div class="form-group">
-                        <input type="text" name="password" class="form-control" id="password" placeholder="Password" required>
+                        <input type="text" name="password" class="form-control" id="password" placeholder="Password"
+                            required>
                     </div>
                 </div>
             </div>
@@ -49,15 +64,20 @@
                 <div class="col-10" style="padding-right: 200px;">
                     <div class="form-group">
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="manager" name="position" value="Manager" class="custom-control-input" <%= data.position == 'Manager' ? 'checked' : '' %>>
+                            <input type="radio" id="manager" name="position" value="Manager"
+                                class="custom-control-input" <%= data.position == 'Manager' ? 'checked' : '' %>>
                             <label class="custom-control-label" for="manager">Manager</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="softDev" name="position" value="Software Developer" class="custom-control-input" <%= data.position == 'Software Developer' ? 'checked' : '' %>>
+                            <input type="radio" id="softDev" name="position" value="Software Developer"
+                                class="custom-control-input"
+                                <%= data.position == 'Software Developer' ? 'checked' : '' %>>
                             <label class="custom-control-label" for="softDev">Software Developer</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="qa" name="position" value="Quality Assurance" class="custom-control-input" <%= data.position == 'Quality Assurance' ? 'checked' : '' %>>
+                            <input type="radio" id="qa" name="position" value="Quality Assurance"
+                                class="custom-control-input"
+                                <%= data.position == 'Quality Assurance' ? 'checked' : '' %>>
                             <label class="custom-control-label" for="qa">Quality Assurance</label>
                         </div>
                     </div>
@@ -75,18 +95,20 @@
                 <div class="col-10" style="padding-right: 200px;">
                     <div class="form-group">
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="fulltime" name="contract" value="fulltime" class="custom-control-input" <%= data.contract == 'fulltime' ? 'checked' : '' %>>
+                            <input type="radio" id="fulltime" name="contract" value="fulltime"
+                                class="custom-control-input" <%= data.contract == 'fulltime' ? 'checked' : '' %>>
                             <label class="custom-control-label" for="fulltime">Full Time Contract</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="parttime" name="contract" value="parttime" class="custom-control-input" <%= data.contract == 'parttime' ? 'checked' : '' %>>
+                            <input type="radio" id="parttime" name="contract" value="parttime"
+                                class="custom-control-input" <%= data.contract == 'parttime' ? 'checked' : '' %>>
                             <label class="custom-control-label" for="parttime">Part Time Contract</label>
                         </div>
                     </div>
                 </div>
             </div>
             </br>
-            
+
             <div class="col" style="padding-left: 100px;">
                 <button type="submit" class="btn btn-primary">Update</button></br></br>
             </div>

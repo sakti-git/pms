@@ -1,5 +1,18 @@
 <% include ../partials/header %>
 
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item <%= link == 'projects' ? 'active' : '' %>">
+            <a class="nav-link" href="/projects">Projects <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item <%= link == 'profile' ? 'active' : '' %>">
+            <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+    <a href="/logout"><button class="btn btn-outline-success tombol sign-out my-2 my-sm-0">Sign Out</button></a>
+</div>
+</nav>
+
 <form action="/projects" id="form-filter" method="GET" style="padding-inline: 50px;">
     <div class="card">
         <div class="card-header">
@@ -68,10 +81,10 @@
             </div>
 </form>
 
-<form class="form-inline" action="/projects/option" method="POST" style="padding-left: 100px;">
-    <div class="row" style="background-color: rgb(176, 250, 182);">
+<form class="form-inline" action="/projects/option" method="POST" style="padding-left: 15px;">
+    <div class="row">
         <label class="form-check-label" for="name">
-            Columns
+            <h4>Option Columns</h4>
         </label>
 
         <div class="form-check form-check-inline" style="padding-left: 70px;">
@@ -115,11 +128,11 @@
             <th>Actions</th>
         </tr>
     </thead>
-    <% hasil.forEach((item, index) => {  %>
+    <% hasil.forEach(item => {  %>
     <tbody>
         <tr>
             <th <%= option.id ? `` : `hidden` %>>
-                <a class="btn btn-outline-primary" href=""><%=item.projectid%></a>
+                <a class="btn btn-outline-primary" href="/projects/overview/view"><%=item.projectid%></a>
             </th>
             <td <%= option.name ? `` : `hidden` %>><%=item.name%></td>
             <td <%= option.member ? `` : `hidden` %>><%=item.member%></td>

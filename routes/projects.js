@@ -251,7 +251,7 @@ module.exports = (db) => {
 
     // start members
     router.get('/members/:projectid', helpers.isLoggedIn, function (req, res, next) {
-        res.render('projects/members/list', { user: req.session.user })
+        res.render('projects/members/view', { user: req.session.user })
     });
 
     router.get('/members/:projectid/add', helpers.isLoggedIn, function (req, res, next) {

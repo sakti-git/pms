@@ -18,9 +18,18 @@
     "http-errors": "~1.6.3",
     "moment": "^2.27.0",
     "morgan": "~1.9.1",
+    "node-modules": "^1.0.1",
     "pg": "^8.3.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"
-  }
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "sakti-git"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

@@ -1,13 +1,173 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Issues</title>
-</head>
-<body>
-    <div class="tab-pane fade" id="view-issues" role="tabpanel" aria-labelledby="view-issues-tab">
-        <h1>THIS ISSUES PAGE IS UNDER CONSTRUCTION !!!</h1>
-    </div>
-</body>
-</html>
+<% include ../../partials/header %>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/projects">Projects <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+    <a href="/logout"><button class="btn btn-outline-success tombol sign-out my-2 my-sm-0">Sign Out</button></a>
+</div>
+</nav>
+
+</form>
+
+<div class="row">
+
+    <% include ../../partials/sidebar %>
+
+    <form action="/projects" id="form-filter" method="GET" style="padding-inline: 50px;" class="col-10">
+        <div class="card">
+            <div class="card-header">
+                <h2>Issues</h2>
+                <hr>
+                <h3>Filters</h3>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col" style="padding-left: 100px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="cekId" name="checkId">
+                            <label class="form-check-label" for="id">
+                                ID
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-9" style="padding-right: 200px;">
+                        <div class="form-group">
+                            <input type="text" name="id" class="form-control" id="id" placeholder="ID">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col" style="padding-left: 100px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="cekSubject" name="checkSubject">
+                            <label class="form-check-label" for="subject">
+                                Subject
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-9" style="padding-right: 200px;">
+                        <div class="form-group">
+                            <input type="text" name="subject" class="form-control" id="subject" placeholder="Name">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col" style="padding-left: 100px;">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="true" id="cekTracker"
+                                name="checkTracker">
+                            <label class="form-check-label" for="tracker">
+                                Tracker
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-9" style="padding-right: 200px;">
+                        <div class="form-group">
+                            <select name="tracker" id="tracker" class="custom-select custom-select">
+                                <option selected disabled>Choose a tracker ...</option>
+
+                                <option value=""></option>
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 100px;">
+                    <button type="submit" class="btn btn-primary">Search</button></br></br>
+                </div>
+    </form>
+
+    <form class="form-inline" action="" method="POST" style="padding-left: 15px;">
+        <div class="row">
+            <label class="form-check-label" for="name">
+                <h4>Option Columns</h4>
+            </label>
+
+            <div class="form-check form-check-inline" style="padding-left: 70px;">
+                <input class="form-check-input" type="checkbox" value="true" id="cekColId" name="checkColId">
+                <label class="form-check-label" for="id">
+                    ID
+                </label>
+            </div>
+            <div class="form-check form-check-inline" style="padding-left: 20px;">
+                <input class="form-check-input" type="checkbox" value="true" id="cekColSubject" name="checkColSubject">
+                <label class="form-check-label" for="subject">
+                    Subject
+                </label>
+            </div>
+            <div class="form-check form-check-inline" style="padding-left: 20px;">
+                <input class="  " type="checkbox" value="true" id="cekColTracker"
+                    name="checkColTracker">
+                <label class="form-check-label" for="tracker">
+                    Tracker
+                </label>
+            </div>
+            <div class="form-check form-check-inline" style="padding-left: 20px;">
+                <button class="btn btn-primary">Apply</button></a>
+            </div>
+
+        </div>
+        </br>
+    </form>
+
+    <div class="container" style="padding-top: 20px;"></div>
+
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Subject</th>
+                <th>Tracker</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <th></th>
+                <td></td>
+                <td></td>
+                <td>
+                    <button class="btn btn-success"><a href="" style="color: white;">
+                            Edit
+                        </a></button>
+                    <button class="btn btn-danger" onclick="return confirm('Are you sure want to DELETE ?')"><a href=""
+                            style="color: white;">
+                            Delete
+                        </a></button></td>
+                </td>
+            </tr>
+        </tbody>
+
+    </table>
+
+    <nav aria-label="...">
+        <ul class="pagination">
+            <li class="page-item"><a class="page-link" href="">Previous</a>
+            </li>
+
+            <li class=""><a class="page-link" href=""></a>
+            </li>
+
+            <li class=""> <a class="page-link disabled" href="">Next</a>
+            </li>
+        </ul>
+    </nav>  
+
+    <a href="/projects/issues/add" <button class="btn btn-primary">ADD</button> </a>
+
+</div>
+
+
+<% include ../../partials/footer %>

@@ -1,0 +1,241 @@
+<% include ../../partials/header %>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+            <a class="nav-link" href="/projects">Projects <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+    <a href="/logout"><button class="btn btn-outline-success tombol sign-out my-2 my-sm-0">Sign Out</button></a>
+</div>
+</nav>
+
+</form>
+
+<div class="row">
+
+    <% include ../../partials/sidebar %>
+
+    <form action="" id="form-filter" method="GET" style="padding-inline: 50px;" class="col-10">
+        <div class="card">
+            <div class="card-header">
+                <h1>New Issue</h1>
+                <hr>
+
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col" style="padding-left: 50px;">
+                                <label class="form-check-label" for="tracker">
+                                    Tracker
+                                </label>
+                            </div>
+
+                            <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                                <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="bug" name="bug" value="bug"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="bug">Bug</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="feature" name="feature" value="feature"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="feature">Feature</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="support" name="support" value="support"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="feature">Support</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col" style="padding-left: 50px;">
+                                <label class="form-check-label" for="subject">
+                                    Subject
+                                </label>
+                            </div>
+                            <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                                <div class="form-group">
+                                    <input type="text" name="id" class="form-control" id="id" placeholder="Project ID">
+                                </div>
+                            </div>
+
+                            <div class="col" style="padding-left: 50px;">
+                                <label class="form-check-label" for="subject">
+                                    Description
+                                </label>
+                            </div>
+                            <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                                <div class="form-group">
+                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col" style="padding-left: 50px;">
+                                <label class="form-check-label" for="status">
+                                    Status
+                                </label>
+                            </div>
+                            <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                                <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="new" name="new" value="new"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="new">New</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="inProgress" name="inProgress" value="inProgress"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="inProgress">In Progress</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="resolved" name="resolved" value="resolved"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="resolved">Resolved</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="feedback" name="feedback" value="feedback"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="feedback">Feedback</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="closed" name="closed" value="closed"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="closed">Closed</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="rejected" name="rejected" value="rejected"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="rejected">Rejected</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col" style="padding-left: 50px;">
+                                <label class="form-check-label" for="priority">
+                                    Priority
+                                </label>
+                            </div>
+                            <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                                <div class="form-group">
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="normal" name="normal" value="normal"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="normal">Normal</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="high" name="high" value="high"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="high">High</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="urgent" name="urgent" value="urgent"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="urgent">Urgent</label>
+                                    </div>
+                                    <div class="custom-control custom-radio">
+                                        <input type="radio" id="immediate" name="immediate" value="immediate"
+                                            class="custom-control-input">
+                                        <label class="custom-control-label" for="immediate">Immediate</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col" style="padding-left: 50px;">
+                                <label class="form-check-label" for="assignee">
+                                    Assignee
+                                </label>
+                            </div>
+                            <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                                <div class="form-group">
+                                    <select name="assignee" id="assignee" class="custom-select custom-select">
+                                        <option selected disabled></option>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col" style="padding-left: 50px;">
+                                <label class="form-check-label" for="startDate">
+                                    Start Date
+                                </label>
+                            </div>
+                            <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                                <div class="form-group">
+                                    <input type="text" name="startDate" class="form-control" id="startDate"
+                                        placeholder="Start Date">
+                                </div>
+                            </div>
+
+                            <div class="col" style="padding-left: 50px;">
+                                <label class="form-check-label" for="dueDate">
+                                    Start Date
+                                </label>
+                            </div>
+                            <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                                <div class="form-group">
+                                    <input type="text" name="dueDate" class="form-control" id="dueDate"
+                                        placeholder="Due Date">
+                                </div>
+                            </div>
+
+                            <div class="col" style="padding-left: 50px;">
+                                <label class="form-check-label" for="estimatedTime">
+                                    Estimated Time
+                                </label>
+                            </div>
+                            <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                                <div class="form-group">
+                                    <input type="text" name="estimatedTime" class="form-control" id="estimatedTime"
+                                        placeholder="Due Date">
+                                </div>
+                            </div>
+
+                            <div class="col" style="padding-left: 50px;">
+                                <label class="form-check-label" for="done">
+                                    % done
+                                </label>
+                            </div>
+                            <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                                <div class="form-group">
+                                    <select name="done" id="done" class="custom-select custom-select">
+                                        <option selected disabled></option>
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col" style="padding-left: 50px;">
+                                <label class="form-check-label" for="files">
+                                    Files
+                                </label>
+                            </div>
+                            <div class="col-10" style="padding-right: 500px; padding-left: 50px;">
+                                <div class="form-group">
+                                    <input type="text" name="files" class="form-control" id="files">
+                                </div>
+                            </div>
+
+                            <div class="form-check form-check-inline" style="padding-left: 50px;">
+                                <button class="btn btn-primary">Save</button></a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<% include ../../partials/footer %>

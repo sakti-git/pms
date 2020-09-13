@@ -1,0 +1,74 @@
+<% include ../../partials/header %>
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item <%= link == 'projects' ? 'active' : '' %>">
+            <a class="nav-link" href="/projects">Projects <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item <%= link == 'profile' ? 'active' : '' %>">
+            <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
+        </li>
+    </ul>
+    <a href="/logout"><button class="btn btn-outline-success to mbol sign-out my-2 my-sm-0">Sign Out</button></a>
+</div>
+</nav>
+
+<form action="" id="form-filter" method="POST" style="padding-inline: 50px;">
+    <div class="card">
+        <div class="card-header">
+            <h2>Edit Issues</h2>
+        </div>
+
+        <div class="card-body">
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="editSubject">
+                            Subject
+                        </label>
+                    </div>
+                </div>
+                <div class="col-10" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <input type="text" name="editSubject" class="form-control" id="editSubject" placeholder=""
+                            value="">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="editTracker">
+                            Position
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-10">
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" name="editTracker" id="" value="">
+                        <label class="form-check-label" for="">
+                            
+                        </label>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col" style="padding-left: 100px; padding-top: 10px;">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="" <button class="btn btn-warning">Back</button></a>
+            </div>
+
+        </div>
+
+    </div>
+    </div>
+</form>
+
+<% include ../../partials/footer %>

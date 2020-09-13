@@ -277,7 +277,7 @@ module.exports = (db) => {
 
     // start issues
     router.get('/issues/:projectid', helpers.isLoggedIn, function (req, res, next) {
-        res.render('projects/issues/list', { user: req.session.user })
+        res.render('projects/issues/view', { user: req.session.user })
     });
 
     router.get('/issues/:projectid/add', helpers.isLoggedIn, function (req, res, next) {

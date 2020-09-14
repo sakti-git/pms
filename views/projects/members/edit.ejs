@@ -13,62 +13,78 @@
 </div>
 </nav>
 
-<form action="" id="form-filter" method="POST" style="padding-inline: 50px;">
-    <div class="card">
-        <div class="card-header">
-            <h2>Edit Members</h2>
+<div class="row">
+    <% include ../../partials/sidebar %>
+    <form action="" id="form-filter" method="POST" style="padding-inline: 50px;" class="col-10">
+
+        <div class="card">
+            <div class="card-header">
+                <h2>Edit Members</h2>
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col" style="padding-left: 100px;">
+                        <div class="form-check">
+                            <label class="form-check-label" for="editMemberName">
+                                Member
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-9" style="padding-right: 200px;">
+                        <div class="form-group">
+                            <input type="text" name="editMemberName" class="form-control" id="editMemberName"
+                                placeholder="" value="<%= member.fullname %>" readonly>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col" style="padding-left: 100px;">
+                        <div class="form-check">
+                            <label class="form-check-label" for="editMemberPosition">
+                                Position
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="col-9">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="editPosition" id="manager"
+                                value="Manager" <%= member.role == 'Manager' ? 'checked' : '' %>>
+                            <label class="form-check-label" for="manager">
+                                Manager
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="editPosition" id="softDev"
+                                value="Software Developer" <%= member.role == 'Software Developer' ? 'checked' : '' %>>
+                            <label class="form-check-label" for="softDev">
+                                Software Developer
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="editPosition" id="qa"
+                                value="Quality Assurance" <%= member.role == 'Quality Assurance' ? 'checked' : '' %>>
+                            <label class="form-check-label" for="qa">
+                                Quality Assurance
+                            </label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col" style="padding-left: 100px; padding-top: 10px;">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <!-- <a href="/projects/<%= id %>/members/" <button class="btn btn-warning">Back</button></a> -->
+                </div>
+
+            </div>
+
         </div>
 
-        <div class="card-body">
-
-            <div class="row">
-                <div class="col" style="padding-left: 100px;">
-                    <div class="form-check">
-                        <label class="form-check-label" for="editMemberName">
-                            Name
-                        </label>
-                    </div>
-                </div>
-                <div class="col-10" style="padding-right: 200px;">
-                    <div class="form-group">
-                        <input type="text" name="editMemberName" class="form-control" id="editMemberName" placeholder=""
-                            value="">
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-
-                <div class="col" style="padding-left: 100px;">
-                    <div class="form-check">
-                        <label class="form-check-label" for="editMemberPosition">
-                            Position
-                        </label>
-                    </div>
-                </div>
-
-                <div class="col-10">
-
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="editMembers" id="" value="">
-                        <label class="form-check-label" for="">
-                            
-                        </label>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="col" style="padding-left: 100px; padding-top: 10px;">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="" <button class="btn btn-warning">Back</button></a>
-            </div>
-
-        </div>
-
-    </div>
-    </div>
-</form>
+    </form>
+</div>
 
 <% include ../../partials/footer %>

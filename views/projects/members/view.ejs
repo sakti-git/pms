@@ -19,7 +19,7 @@
 
     <% include ../../partials/sidebar %>
 
-    <form action="/projects" id="form-filter" method="GET" style="padding-inline: 50px;" class="col-10">
+    <form id="form-filter" method="GET" style="padding-inline: 50px;" class="col-10">
         <div class="card">
             <div class="card-header">
                 <h2>Members</h2>
@@ -66,15 +66,15 @@
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="true" id="cekPosition"
                                 name="checkPosition">
-                            <label class="form-check-label" for="name">
+                            <label class="form-check-label" for="position">
                                 Position
                             </label>
                         </div>
                     </div>
                     <div class="col-9" style="padding-right: 200px;">
                         <div class="form-group">
-                            <select name="member" id="member" class="custom-select custom-select">
-                                <option selected disabled>Choose a member ...</option>
+                            <select name="position" id="position" class="custom-select custom-select">
+                                <option selected disabled>Choose a position ...</option>
 
                                 <option value=""></option>
 
@@ -88,28 +88,30 @@
                 </div>
     </form>
 
-    <form class="form-inline" action="" method="POST" style="padding-left: 15px;">
+    <form class="form-inline" action="/projects/<%= id %>/members/option" method="POST" style="padding-left: 15px;">
         <div class="row">
             <label class="form-check-label" for="name">
                 <h4>Option Columns</h4>
             </label>
 
             <div class="form-check form-check-inline" style="padding-left: 70px;">
-                <input class="form-check-input" type="checkbox" value="true" id="cekColId" name="checkColId">
+                <input class="form-check-input" type="checkbox" value="true" id="cekColId" name="checkColId"
+                    <%= option.id ? `checked` : `` %>>
                 <label class="form-check-label" for="id">
                     ID
                 </label>
             </div>
             <div class="form-check form-check-inline" style="padding-left: 20px;">
-                <input class="form-check-input" type="checkbox" value="true" id="cekColName" name="checkColName">
+                <input class="form-check-input" type="checkbox" value="true" id="cekColName" name="checkColName"
+                    <%= option.name ? `checked` : `` %>>
                 <label class="form-check-label" for="name">
                     Name
                 </label>
             </div>
             <div class="form-check form-check-inline" style="padding-left: 20px;">
-                <input class="form-check-input" type="checkbox" value="true" id="cekColPosition"
-                    name="checkColPosition">
-                <label class="form-check-label" for="members">
+                <input class="form-check-input" type="checkbox" value="true" id="cekColPosition" name="checkColPosition"
+                    <%= option.position ? `checked` : `` %>>
+                <label class="form-check-label" for="position">
                     Position
                 </label>
             </div>
@@ -126,50 +128,50 @@
     <table class="table table-hover">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Position</th>
+                <th <%= option.id ? `` : `hidden` %>>ID</th>
+                <th <%= option.name ? `` : `hidden` %>>Name</th>
+                <th <%= option.position ? `` : `hidden` %>>Position</th>
                 <th>Actions</th>
             </tr>
         </thead>
-
+        <% members.forEach(item => { %>
         <tbody>
             <tr>
-                <th></th>
-                <td></td>
-                <td></td>
+                <th <%= option.id ? `` : `hidden` %>><%= item.id %></th>
+                <td <%= option.name ? `` : `hidden` %>><%= item.fullname %></td>
+                <td <%= option.position ? `` : `hidden` %>><%= item.role %></td>
                 <td>
-                    <button class="btn btn-success"><a href="" style="color: white;">
+                    <button class="btn btn-success"><a href="/projects/<%= id %>/members/<%= item.id %>"
+                            style="color: white;">
                             Edit
                         </a></button>
-                    <button class="btn btn-danger" onclick="return confirm('Are you sure want to DELETE ?')"><a href=""
-                            style="color: white;">
+                    <button class="btn btn-danger" onclick="return confirm('Are you sure want to DELETE ?')"><a
+                            href="/projects/<%= id%>/members/<%= item.id %>/delete" style="color: white;">
                             Delete
                         </a></button></td>
                 </td>
             </tr>
         </tbody>
-
+        <% }) %>
     </table>
 
     <nav aria-label="...">
         <ul class="pagination">
             <li class="page-item"><a class="page-link" href="">Previous</a>
             </li>
-
-            <li class=""><a class="page-link" href=""></a>
+            <%for (let i=1; i <= pages; i++ ){%>
+            <li class="page-item <%= (i == page) ? 'active' : '' %>"><a class="page-link"
+                    href="/projects<%= pageUrl.replace(`?page=${parseInt(page)}`,`?page=${i}`) %>"><%= i %></a>
             </li>
-
-            <li class=""> <a class="page-link disabled" href="">Next</a>
+            <%}%>
+            <li class="page-item <%= page==pages ? 'disabled' : '' %>"> <a class="page-link"
+                href="/projects<%= pageUrl.replace(`?page=${parseInt(page)}`,`?page=${parseInt(page) + 1}`) %>">Next</a>
             </li>
         </ul>
     </nav>
 
-    <a href="/projects/members/add" <button class="btn btn-primary">ADD</button> </a>
+    <a href="/projects/<%= id %>/members/add" <button class="btn btn-primary">ADD</button></a>
 
-</div>
-
-</div>
 </div>
 
 <% include ../../partials/footer %>

@@ -135,11 +135,12 @@
                     <th>Actions</th>
                 </tr>
             </thead>
-            <% hasil.forEach(item => {  %>
+            <% hasil.forEach(item => { %>
             <tbody>
                 <tr>
                     <th <%= option.id ? `` : `hidden` %>>
-                        <a class="btn btn-outline-primary" href="/projects/overview/view"><%=item.projectid%></a>
+                        <a class="btn btn-outline-primary"
+                            href="/projects/<%= item.projectid %>/overview"><%=item.projectid%></a>
                     </th>
                     <td <%= option.name ? `` : `hidden` %>><%=item.name%></td>
                     <td <%= option.member ? `` : `hidden` %>><%=item.member%></td>

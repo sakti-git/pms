@@ -1,12 +1,12 @@
 body {
-  font: 14px 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 a {
   color: #00B7FF;
 }
 
-* {
+/* {
   padding: 0;
   margin: 0;
   text-decoration: none;
@@ -14,9 +14,7 @@ a {
   box-sizing: border-box;
 }
 
-/* body {
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-} */
+
 
 nav{
   background: #0082e6;
@@ -109,4 +107,4 @@ a.active,a.hover{
   #check:checked ~ ul{
     left: 0;
   }
-}
+}*/

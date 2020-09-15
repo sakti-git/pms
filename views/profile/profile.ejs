@@ -13,14 +13,14 @@
 </div>
 </nav>
 
-<form id="form-filter" method="POST" style="padding-inline: 50px;">
+<form id="form-filter" method="POST"
+    style="padding-top: 20px; padding-bottom: 10px; padding-right: 200px; padding-left: 200px;">
     <div class="card">
-        <div class="card-header">
-            <h2>Profile</h2>
+        <div class="card-header" style="background-color: wheat;">
+            <h2>Your Profile</h2>
         </div>
 
-        <div class="card-body">
-
+        <div class="card-body" style="background-color:burlywood;">
             <div class="row">
                 <div class="col" style="padding-left: 100px;">
                     <div class="form-check">
@@ -29,7 +29,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-10" style="padding-right: 200px;">
+                <div class="col-9" style="padding-right: 170px;">
                     <div class="form-group">
                         <input type="text" name="email" class="form-control" id="email" value="<%= data.email %>"
                             readonly>
@@ -45,7 +45,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-10" style="padding-right: 200px;">
+                <div class="col-9" style="padding-right: 170px;">
                     <div class="form-group">
                         <input type="text" name="password" class="form-control" id="password" placeholder="Password"
                             required>
@@ -61,7 +61,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-10" style="padding-right: 200px;">
+                <div class="col-9" style="padding-right: 200px;">
                     <div class="form-group">
                         <div class="custom-control custom-radio">
                             <input type="radio" id="manager" name="position" value="Manager"
@@ -92,7 +92,7 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-10" style="padding-right: 200px;">
+                <div class="col-9" style="padding-right: 200px;">
                     <div class="form-group">
                         <div class="custom-control custom-radio">
                             <input type="radio" id="fulltime" name="contract" value="fulltime"
@@ -107,15 +107,12 @@
                     </div>
                 </div>
             </div>
-            </br>
 
             <div class="col" style="padding-left: 100px;">
                 <button type="submit" class="btn btn-primary">Update</button></br></br>
             </div>
 
         </div>
-
-    </div>
     </div>
 </form>
 

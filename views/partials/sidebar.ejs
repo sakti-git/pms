@@ -1,16 +1,8 @@
-<div class="col-2">
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <a class="nav-link active" href="/projects/<%= id %>/overview/">Overview</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/projects/<%= id %>/activity/">Activity</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/projects/<%= id %>/members/">Member</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/projects/<%= id %>/issues/">Issues</a>
-    </li>
-  </ul>
+<div class="bg-light border-right" id="sidebar-wrapper">
+  <div class="list-group list-group-flush">
+    <a href="/projects/overview/<%= id %>/" class="list-group-item list-group-item-action bg-light">Overview</a>
+    <a href="/projects/activity/<%= id %>/" class="list-group-item list-group-item-action bg-light">Activity</a>
+    <a href="/projects/members/<%= id %>/" class="list-group-item list-group-item-action bg-light">Members</a>
+    <a href="/projects/issues/<%= id %>/" class="list-group-item list-group-item-action bg-light">Issues</a>
+  </div>
 </div>

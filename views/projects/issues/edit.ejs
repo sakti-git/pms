@@ -1,27 +1,46 @@
 <% include ../../partials/header %>
 
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item <%= link == 'projects' ? 'active' : '' %>">
-            <a class="nav-link" href="/projects">Projects <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item <%= link == 'profile' ? 'active' : '' %>">
-            <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
-        </li>
-    </ul>
-    <a href="/logout"><button class="btn btn-outline-success to mbol sign-out my-2 my-sm-0">Sign Out</button></a>
-</div>
-</nav>
-
 <form action="" id="form-filter" method="POST" style="padding-inline: 50px;">
     <div class="card">
         <div class="card-header">
             <h2>Edit Issues</h2>
         </div>
+        <input type="hidden" name="olddone" value="<%=issue.done%>">
+        <input type="hidden" name="oldspent" value="<%=issue.spenttime == null ? '0' : issue.spenttime%>">
 
         <div class="card-body">
-
             <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="editSubject">
+                            Tracker
+                        </label>
+                    </div>
+                </div>
+                <div class="col-10" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="bug" name="tracker" value="bug" class="custom-control-input"
+                                <%= issue.tracker == 'Bug' ? 'checked' : 'disabled' %>>
+                            <label class="custom-control-label" for="bug">Bug</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="feature" name="tracker" value="feature" class="custom-control-input"
+                                <%= issue.tracker == 'Feature' ? 'checked' : 'disabled' %>>
+                            <label class="custom-control-label" for="feature">feature</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="support" name="tracker" value="support" class="custom-control-input"
+                                <%= issue.tracker == 'Support' ? 'checked' : 'disabled' %>>
+                            <label class="custom-control-label" for="support">Support</label>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col" style="padding-left: 100px;">
                     <div class="form-check">
                         <label class="form-check-label" for="editSubject">
@@ -29,45 +48,271 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-10" style="padding-right: 200px;">
-                    <div class="form-group">
-                        <input type="text" name="editSubject" class="form-control" id="editSubject" placeholder=""
-                            value="">
+                <div class="col-10">
+                    <div class="form-check">
+                        <input type="text" class="form-check-input" name="editSubject" id="editSubject"
+                            value="<%= issue.subject %>" placeholder="Subject">
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
 
                 <div class="col" style="padding-left: 100px;">
                     <div class="form-check">
-                        <label class="form-check-label" for="editTracker">
-                            Position
+                        <label class="form-check-label" for="editDescription">
+                            Description
                         </label>
                     </div>
                 </div>
-
                 <div class="col-10">
-
                     <div class="form-check">
-                        <input type="checkbox" class="form-check-input" name="editTracker" id="" value="">
-                        <label class="form-check-label" for="">
-                            
-                        </label>
+                        <textarea class="form-check-input" name="description" id="description"
+                            value="<%= issue.description %>" placeholder="Description"></textarea>
                     </div>
-
                 </div>
 
-            </div>
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="status">
+                            Status
+                        </label>
+                    </div>
+                </div>
+                <div class="col-10" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="new" name="status" value="new" class="custom-control-input"
+                                <%= issue.status == 'New' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="new">New</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="inProgress" name="status" value="inProgress"
+                                class="custom-control-input" <%= issue.status == 'InProgress' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="inProgress">In Progress</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="resolve" name="status" value="resolve" class="custom-control-input"
+                                <%= issue.status == 'Resolve' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="resolve">Resolve</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="feedback" name="status" value="feedback"
+                                class="custom-control-input" <%= issue.status == 'Feedback' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="feedback">Feedback</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="closed" name="status" value="closed" class="custom-control-input"
+                                <%= issue.status == 'Closed' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="closed">Closed</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="rejected" name="status" value="rejected"
+                                class="custom-control-input" <%= issue.status == 'Rejected' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="rejected">Rejected</label>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="col" style="padding-left: 100px; padding-top: 10px;">
-                <button type="submit" class="btn btn-primary">Update</button>
-                <a href="" <button class="btn btn-warning">Back</button></a>
-            </div>
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="priority">
+                            Priority
+                        </label>
+                    </div>
+                </div>
+                <div class="col-10" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="normal" name="priority" value="normal" class="custom-control-input"
+                                <%= issue.priority == 'Normal' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="normal">Normal</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="high" name="priority" value="high" class="custom-control-input"
+                                <%= issue.priority == 'High' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="high">High</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="urgent" name="priority" value="urgent" class="custom-control-input"
+                                <%= issue.priority == 'Urgent' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="urgent">Urgent</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="immediate" name="priority" value="immediate"
+                                class="custom-control-input" <%= issue.priority == 'Immediate' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="immediate">Immediate</label>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="col" style="padding-left: 50px;">
+                    <label class="form-check-label" for="assignee">
+                        Assignee
+                    </label>
+                </div>
+                <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                    <div class="form-group">
+                        <select name="assignee" id="assignee" class="custom-select custom-select" required="">
+                            <option selected disabled>Choose the Assignee ...</option>
+                            <% members.forEach(item => {%>
+                            <option value="<%= item.userid %>" <%= item.userid == issue.assignee ? 'selected' : " " %>>
+                                <%= item.fullname %></option>
+                            <%})%>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 50px;">
+                    <label class="form-check-label" for="startDate">
+                        Start Date
+                    </label>
+                </div>
+                <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                    <div class="form-group">
+                        <input type="date" name="startDate" class="form-control" id="startDate" placeholder="Start Date"
+                            value="<%= moment(issue.startdate).format('YYYY-MM-DD') %>" disabled>
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 50px;">
+                    <label class="form-check-label" for="dueDate">
+                        Due Date
+                    </label>
+                </div>
+                <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                    <div class="form-group">
+                        <input type="date" name="dueDate" class="form-control" id="dueDate" placeholder="Due Date"
+                            value="<%= moment(issue.duedate).format('YYYY-MM-DD') %>" disabled>
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 50px;">
+                    <label class="form-check-label" for="estimatedTime">
+                        Estimated Time
+                    </label>
+                </div>
+                <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                    <div class="form-group">
+                        <input type="number" name="estimatedTime" class="form-control" id="estimatedTime"
+                            placeholder="Estimated Time" value="<%= issue.estimatedtime %>" disabled>
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 50px;">
+                    <label class="form-check-label" for="done">
+                        Work Done
+                    </label>
+                </div>
+                <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                    <div class="form-group">
+                        <select name="done" id="done" class="custom-select custom-select">
+                            <option selected disabled>Choose the Percentage ...</option>
+                            <option value="0" <%= issue.done == 0 ? 'selected' : '' %>>0%</option>
+                            <option value="10" <%= issue.done == 10 ? 'selected' : '' %>>10%</option>
+                            <option value="20" <%= issue.done == 20 ? 'selected' : '' %>>20%</option>
+                            <option value="30" <%= issue.done == 30 ? 'selected' : '' %>>30%</option>
+                            <option value="40" <%= issue.done == 40 ? 'selected' : '' %>>40%</option>
+                            <option value="50" <%= issue.done == 50 ? 'selected' : '' %>>50%</option>
+                            <option value="60" <%= issue.done == 60 ? 'selected' : '' %>>60%</option>
+                            <option value="70" <%= issue.done == 70 ? 'selected' : '' %>>70%</option>
+                            <option value="80" <%= issue.done == 80 ? 'selected' : '' %>>80%</option>
+                            <option value="90" <%= issue.done == 90 ? 'selected' : '' %>>90%</option>
+                            <option value="100" <%= issue.done == 100 ? 'selected' : '' %>>100%</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 50px;">
+                    <label class="form-check-label" for="parentTask">
+                        Parent Task
+                    </label>
+                </div>
+                <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                    <div class="form-group">
+                        <select name="parentTask" id="parentTask" class="custom-select custom-select" required="">
+                            <option selected disabled>Choose the Parent Task ...</option>
+                            <% parent.forEach(item => {%>
+                            <option value="<%= item.issueid %>"><%= item.subject %>(<%= item.tracker %>)</option>
+                            <%})%>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 50px;">
+                    <label class="form-check-label" for="spentTime">
+                        Spent Time
+                    </label>
+                </div>
+                <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                    <div class="form-group">
+                        <input type="number" name="spentTime" class="form-control" id="spentTime"
+                            placeholder="Spent Time" value="<%= issue.spenttime %>" disabled>
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="target">
+                            Target Version
+                        </label>
+                    </div>
+                </div>
+                <div class="col-10">
+                    <div class="form-check">
+                        <input type="text" class="form-check-input" name="target" id="target"
+                            value="<%= issue.targetversion %>" placeholder="ex: version 1.0">
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="author">
+                            Author
+                        </label>
+                    </div>
+                </div>
+                <div class="col-10">
+                    <div class="form-check">
+                        <input type="text" class="form-check-input" name="author" id="author"
+                            value="<%= issue.author %>" disabled>
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 50px;">
+                    <label class="form-check-label" for="file">
+                        File
+                    </label>
+                </div>
+                <div class="col-10" style="padding-right: 50px; padding-left: 50px;">
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" name="file" class="custom-file-input" id="file">
+                            <label class="custom-file-label"
+                                for="inputFile"><%= issue.files ? 'Change file ...' : 'Choose file ...' %></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col" style="padding-left: 100px; padding-top: 10px;">
+                    <button type="submit" class="btn btn-primary">Update</button>
+                </div>
+            </div>
         </div>
 
-    </div>
     </div>
 </form>
 

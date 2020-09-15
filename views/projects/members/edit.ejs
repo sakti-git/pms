@@ -1,29 +1,14 @@
 <% include ../../partials/header %>
 
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item <%= link == 'projects' ? 'active' : '' %>">
-            <a class="nav-link" href="/projects">Projects <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item <%= link == 'profile' ? 'active' : '' %>">
-            <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
-        </li>
-    </ul>
-    <a href="/logout"><button class="btn btn-outline-success tombol sign-out my-2 my-sm-0">Sign Out</button></a>
-</div>
-</nav>
-
-<div class="row">
-    <% include ../../partials/sidebar %>
-    <form action="" id="form-filter" method="POST" style="padding-inline: 50px;" class="col-10">
-
+<div class="d-flex" id="wrapper">
+    <form action="" id="form-filter" method="POST"
+        style="padding-top: 20px; padding-bottom: 10px; padding-right: 200px; padding-left: 200px; width: 100%;">
         <div class="card">
-            <div class="card-header">
+            <div class="card-header" style="background-color: wheat;">
                 <h2>Edit Members</h2>
             </div>
 
-            <div class="card-body">
-
+            <div class="card-body" style="background-color: burlywood;">
                 <div class="row">
                     <div class="col" style="padding-left: 100px;">
                         <div class="form-check">
@@ -32,7 +17,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-9" style="padding-right: 200px;">
+                    <div class="col-9" style="padding-right: 170px;">
                         <div class="form-group">
                             <input type="text" name="editMemberName" class="form-control" id="editMemberName"
                                 placeholder="" value="<%= member.fullname %>" readonly>
@@ -77,13 +62,10 @@
 
                 <div class="col" style="padding-left: 100px; padding-top: 10px;">
                     <button type="submit" class="btn btn-primary">Save</button>
-                    <!-- <a href="/projects/<%= id %>/members/" <button class="btn btn-warning">Back</button></a> -->
                 </div>
-
             </div>
 
         </div>
-
     </form>
 </div>
 

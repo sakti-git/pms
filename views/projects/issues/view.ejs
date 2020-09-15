@@ -1,33 +1,19 @@
 <% include ../../partials/header %>
 
-<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-            <a class="nav-link" href="/projects">Projects <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
-        </li>
-    </ul>
-    <a href="/logout"><button class="btn btn-outline-success tombol sign-out my-2 my-sm-0">Sign Out</button></a>
-</div>
-</nav>
-
-</form>
-
-<div class="row">
+<div class="d-flex" id="wrapper">
 
     <% include ../../partials/sidebar %>
 
-    <form action="/projects" id="form-filter" method="GET" style="padding-inline: 50px;" class="col-10">
+    <form action="" id="form-filter" method="GET"
+        style="padding-top: 20px; padding-bottom: 10px; padding-right: 100px; padding-left: 100px; width: 100%;">
         <div class="card">
-            <div class="card-header">
-                <h2>Issues</h2>
+            <div class="card-header" style="background-color: wheat;">
+                <h1 style="text-align: center;">Issues</h1>
                 <hr>
-                <h3>Filters</h3>
+                <h3 style="text-align: center;">Filters</h3>
             </div>
 
-            <div class="card-body">
+            <div class="card-body" style="background-color: burlywood;">
 
                 <div class="row">
                     <div class="col" style="padding-left: 100px;">
@@ -48,7 +34,8 @@
                 <div class="row">
                     <div class="col" style="padding-left: 100px;">
                         <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="true" id="cekSubject" name="checkSubject">
+                            <input class="form-check-input" type="checkbox" value="true" id="cekSubject"
+                                name="checkSubject">
                             <label class="form-check-label" for="subject">
                                 Subject
                             </label>
@@ -84,31 +71,35 @@
                 </div>
 
                 <div class="col" style="padding-left: 100px;">
-                    <button type="submit" class="btn btn-primary">Search</button></br></br>
+                    <button type="submit" class="btn btn-primary">Search</button></br>
                 </div>
+                <hr>
     </form>
 
-    <form class="form-inline" action="" method="POST" style="padding-left: 15px;">
+    <form class="form-inline" action="" method="POST"
+        style="padding-top: 20px; padding-bottom: 10px; padding-right: 100px; padding-left: 100px; width: 100%;">
         <div class="row">
             <label class="form-check-label" for="name">
                 <h4>Option Columns</h4>
             </label>
 
             <div class="form-check form-check-inline" style="padding-left: 70px;">
-                <input class="form-check-input" type="checkbox" value="true" id="cekColId" name="checkColId">
+                <input class="form-check-input" type="checkbox" value="true" id="cekColId" name="checkColId"
+                    <%= option.checkId ? `checked` : ``%>>
                 <label class="form-check-label" for="id">
                     ID
                 </label>
             </div>
             <div class="form-check form-check-inline" style="padding-left: 20px;">
-                <input class="form-check-input" type="checkbox" value="true" id="cekColSubject" name="checkColSubject">
+                <input class="form-check-input" type="checkbox" value="true" id="cekColSubject" name="checkColSubject"
+                    <%= option.checkSubject ? `checked` : ``%>>
                 <label class="form-check-label" for="subject">
                     Subject
                 </label>
             </div>
             <div class="form-check form-check-inline" style="padding-left: 20px;">
-                <input class="  " type="checkbox" value="true" id="cekColTracker"
-                    name="checkColTracker">
+                <input class="form-check-input" type="checkbox" value="true" id="cekColTracker" name="checkColTracker"
+                    <%= option.checkTracker ? `checked` : ``%>>
                 <label class="form-check-label" for="tracker">
                     Tracker
                 </label>
@@ -121,53 +112,58 @@
         </br>
     </form>
 
-    <div class="container" style="padding-top: 20px;"></div>
+    <hr>
 
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Subject</th>
-                <th>Tracker</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
+    <div class="container" style="padding-top: 20px;">
 
-        <tbody>
-            <tr>
-                <th></th>
-                <td></td>
-                <td></td>
-                <td>
-                    <button class="btn btn-success"><a href="" style="color: white;">
-                            Edit
-                        </a></button>
-                    <button class="btn btn-danger" onclick="return confirm('Are you sure want to DELETE ?')"><a href=""
-                            style="color: white;">
-                            Delete
-                        </a></button></td>
-                </td>
-            </tr>
-        </tbody>
+        <table class="table table-hover" style="border-style: solid;">
+            <thead class="thead-dark">
+                <tr>
+                    <th <%= option.checkId ? `` : `hidden` %>>ID</th>
+                    <th <%= option.checkSubject ? `` : `hidden` %>>Subject</th>
+                    <th <%= option.checkTracker ? `` : `hidden` %>>Tracker</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <% issues.forEach(item => { %>
+            <tbody>
+                <tr>
+                    <th <%= option.checkId ? `` : `hidden` %>><%= item.issueid %></th>
+                    <td <%= option.checkSubject ? `` : `hidden` %>><%= item.subject %>></td>
+                    <td <%= option.checkTracker ? `` : `hidden` %>><%= item.tracker %>></td>
+                    <td>
+                        <button class="btn btn-success"><a href="/projects/issues/<%= id %>/edit/<%= item.issueid%>"
+                                style="color: white;">
+                                Edit
+                            </a></button>
+                        <button class="btn btn-danger" onclick="return confirm('Are you sure want to DELETE ?')"><a
+                                href="/projects/issues/<%= id %>/delete/<%= item.issueid%>" style="color: white;">
+                                Delete
+                            </a></button></td>
+                    </td>
+                </tr>
+            </tbody>
+            <% }) %>
+        </table>
 
-    </table>
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link"
+                        href="/projects<%= pageUrl.replace(`page=${parseInt(page)}`, `page=${(parseInt(page) - 1)}`) %>">Previous</a>
+                </li>
+                <% for (let i = 1; i <= pages; i++) { %>
+                <li class="page-item <%= page == i ? 'active' : '' %>"><a class="page-link"
+                        href="/projects<%= pageUrl.replace(`page=${parseInt(page)}`, `page=${i}`) %>"><%= i %></a>
+                </li>
+                <% } %>
+                <li class=""> <a class="page-link disabled" href="">Next</a>
+                </li>
+            </ul>
+        </nav>
 
-    <nav aria-label="...">
-        <ul class="pagination">
-            <li class="page-item"><a class="page-link" href="">Previous</a>
-            </li>
+        <a href="/projects/issues/<%= id %>/add"<button class="btn btn-primary">Add</button> </a>
 
-            <li class=""><a class="page-link" href=""></a>
-            </li>
-
-            <li class=""> <a class="page-link disabled" href="">Next</a>
-            </li>
-        </ul>
-    </nav>  
-
-    <a href="/projects/issues/add" <button class="btn btn-primary">ADD</button> </a>
-
+    </div>
 </div>
-
 
 <% include ../../partials/footer %>

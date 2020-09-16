@@ -1,0 +1,228 @@
+<% include ../partials/header %>
+
+<h2 style="text-align: center; padding-top: 20px;">Dashboard User</h2>
+
+<form action="" id="form-filter" method="GET"
+    style="padding-top: 20px; padding-bottom: 10px; padding-right: 100px; padding-left: 100px;">
+    <div class="card">
+        <div class="card-header" style="background-color: burlywood;">
+            <h3 style="text-align: center;">Filters</h3>
+            <hr>
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="cekId" name="checkId">
+                        <label class="form-check-label" for="id">
+                            ID
+                        </label>
+                    </div>
+                </div>
+                <div class="col-9" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <input type="text" name="id" class="form-control" id="id" placeholder="ID">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="cekName" name="checkName">
+                        <label class="form-check-label" for="name">
+                            Name
+                        </label>
+                    </div>
+                </div>
+                <div class="col-9" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control" id="name" placeholder="Name">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="cekEmail" name="checkEmail">
+                        <label class="form-check-label" for="email">
+                            Email
+                        </label>
+                    </div>
+                </div>
+                <div class="col-9" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <input type="text" name="email" class="form-control" id="email" placeholder="Email">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="cekPosition"
+                            name="checkPosition">
+                        <label class="form-check-label" for="position">
+                            Position
+                        </label>
+                    </div>
+                </div>
+                <div class="col-9" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <select name="position" id="position" class="custom-select custom-select">
+                            <option selected disabled>Choose a position ...</option>
+
+                            <option value=""></option>
+
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="type">
+                            Contract Type
+                        </label>
+                    </div>
+                </div>
+                <div class="col-9" style="padding-right: 200px;">
+                    <div class="form-group">
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="fulltime" name="contract" value="fulltime"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="fulltime">Full Time Contract</label>
+                        </div>
+                        <div class="custom-control custom-radio">
+                            <input type="radio" id="parttime" name="contract" value="parttime"
+                                class="custom-control-input">
+                            <label class="custom-control-label" for="parttime">Part Time Contract</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col" style="padding-left: 100px;">
+                <button type="submit" class="btn btn-primary">Search</button></br>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form action="" method="POST"
+    style="padding-top: 20px; padding-bottom: 10px; padding-right: 100px; padding-left: 100px;">
+    <div class="card">
+        <div class="card-header" style="background-color: burlywood;">
+            <div class="container" style="padding-top: 20px;">
+                <label class="form-check-label" for="name">
+                    <h4>Option Columns</h4>
+                </label>
+
+                <div class="form-check form-check-inline" style="padding-left: 70px;">
+                    <input class="form-check-input" type="checkbox" value="true" id="cekColId" name="checkColId"
+                        <%= checkOpt.id ? `checked` : `` %>>
+                    <label class="form-check-label" for="id">
+                        ID
+                    </label>
+                </div>
+                <div class="form-check form-check-inline" style="padding-left: 20px;">
+                    <input class="form-check-input" type="checkbox" value="true" id="cekColName" name="checkColName"
+                        <%= checkOpt.name ? `checked` : `` %>>
+                    <label class="form-check-label" for="name">
+                        Name
+                    </label>
+                </div>
+                <div class="form-check form-check-inline" style="padding-left: 20px;">
+                    <input class="form-check-input" type="checkbox" value="true" id="cekColPosition"
+                        name="checkColPosition" <%= checkOpt.position ? `checked` : `` %>>
+                    <label class="form-check-label" for="position">
+                        Position
+                    </label>
+                </div>
+                <div class="form-check form-check-inline" style="padding-left: 20px;">
+                    <input class="form-check-input" type="checkbox" value="true" id="cekColEmail" name="checkColEmail"
+                        <%= checkOpt.email ? `checked` : `` %>>
+                    <label class="form-check-label" for="email">
+                        Email
+                    </label>
+                </div>
+                <div class="form-check form-check-inline" style="padding-left: 20px;">
+                    <input class="form-check-input" type="checkbox" value="true" id="cekColType" name="checkColType"
+                        <%= checkOpt.type ? `checked` : `` %>>
+                    <label class="form-check-label" for="email">
+                        Contract
+                    </label>
+                </div>
+                <div class="form-check form-check-inline" style="padding-left: 20px;">
+                    <input class="form-check-input" type="checkbox" value="true" id="cekColRole" name="checkColRole"
+                        <%= checkOpt.role ? `checked` : `` %>>
+                    <label class="form-check-label" for="email">
+                        Role
+                    </label>
+                </div>
+                <div class="form-check form-check-inline" style="padding-left: 20px;">
+                    <button class="btn btn-primary">Apply</button></a>
+                </div>
+            </div>
+
+            <hr>
+
+            <table class="table table-hover" style="border-style: solid;">
+                <thead class="thead-dark">
+                    <tr>
+                        <th <%= checkOpt.id ? `` : `hidden` %>>ID</th>
+                        <th <%= checkOpt.name ? `` : `hidden` %>>Name</th>
+                        <th <%= checkOpt.position ? `` : `hidden` %>>Position</th>
+                        <th <%= checkOpt.email ? `` : `hidden` %>>Email</th>
+                        <th <%= checkOpt.type ? `` : `hidden` %>>Contract</th>
+                        <th <%= checkOpt.role ? `` : `hidden` %>>Role</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <% users.forEach(item => { %>
+                <tbody>
+                    <tr>
+                        <td <%= checkOpt.id ? `` : `hidden` %>><%= item.userid %></a></td>
+                        <td <%= checkOpt.name ? `` : `hidden` %>><%= item.fullname %></td>
+                        <td <%= checkOpt.position ? `` : `hidden` %>><%= item.email %></td>
+                        <td <%= checkOpt.email ? `` : `hidden` %>><%= item.position %></td>
+                        <td <%= checkOpt.type ? `` : `hidden` %>><%= item.contract %></td>
+                        <td <%= checkOpt.role ? `` : `hidden` %>><%= item.role %></td>
+                        <td>
+                            <button class="btn btn-success"><a href="/users/edit/<%= item.userid %>" style="color: white;">
+                                    Edit
+                                </a>
+                            </button>
+                            <button class="btn btn-danger" onclick="return confirm('Are you sure want to DELETE ?')"><a
+                                    href="/users/delete/<%= item.userid %>" style="color: white;">
+                                    Delete
+                                </a>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+                <% }) %>
+            </table>
+
+            <nav aria-label="Page Navigation">
+                <ul class="pagination">
+                    <li class="page-item <%= page==1 ? 'disabled' : '' %>"><a class="page-link"
+                            href="/users<%= url.replace(`?page=${parseInt(page)}`, `?page=${ parseInt(page) - 1}`) %>">Previous</a>
+                    </li>
+                    <%for (let i=1; i <= pages; i++ ){%>
+                    <li class="page-item <%= (i == page) ? 'active' : '' %> "><a class="page-link"
+                            href="/users<%= url.replace(`?page=${parseInt(page)}`,`?page=${i}`) %>"><%= i %></a>
+                    </li>
+                    <%}%>
+                              <li class="page-item <%= page==pages ? 'disabled' : '' %>"> <a class="page-link disabled"
+                        href="/users<%= url.replace(`?page=${parseInt(page)}`,`?page=${parseInt(page) + 1}`) %>">Next</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <a href="/users/add" <button class="btn btn-primary">Add</button></a>
+        </div>
+    </div>
+</form>
+
+<% include ../partials/footer %>

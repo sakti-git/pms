@@ -3,7 +3,8 @@
 <div class="row">
 
     <form id="form-filter" method="POST"
-        style="padding-top: 20px; padding-bottom: 10px; padding-right: 200px; padding-left: 200px; width: 100%;">
+        style="padding-top: 20px; padding-bottom: 10px; padding-right: 200px; padding-left: 200px; width: 100%;"
+        encType="multipart/form-data">
         <div class="card">
             <div class="card-header" style="background-color: wheat;">
                 <h1>New Issue</h1>
@@ -22,17 +23,17 @@
                             <div class="col-9" style="padding-right: 50px; padding-left: 50px;">
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="bug" name="tracker" value="bug"
+                                        <input type="radio" id="bug" name="tracker" value="Bug"
                                             class="custom-control-input">
                                         <label class="custom-control-label" for="bug">Bug</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="feature" name="tracker" value="feature"
+                                        <input type="radio" id="feature" name="tracker" value="Feature"
                                             class="custom-control-input">
                                         <label class="custom-control-label" for="feature">Feature</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="support" name="tracker" value="support"
+                                        <input type="radio" id="support" name="tracker" value="Support"
                                             class="custom-control-input">
                                         <label class="custom-control-label" for="support">Support</label>
                                     </div>
@@ -48,7 +49,7 @@
                             </div>
                             <div class="col-9" style="padding-right: 50px; padding-left: 50px;">
                                 <div class="form-group">
-                                    <input type="text" name="id" class="form-control" id="id"
+                                    <input type="text" name="subject" class="form-control" id="subject"
                                         placeholder="Subject Title">
                                 </div>
                             </div>
@@ -56,13 +57,13 @@
 
                         <div class="row">
                             <div class="col" style="padding-left: 50px;">
-                                <label class="form-check-label" for="subject">
+                                <label class="form-check-label" for="description">
                                     Description
                                 </label>
                             </div>
                             <div class="col-9" style="padding-right: 50px; padding-left: 50px;">
                                 <div class="form-group">
-                                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                    <textarea class="form-control" id="description" rows="3" name="description"
                                         placeholder="Description"></textarea>
                                 </div>
                             </div>
@@ -77,33 +78,33 @@
                             <div class="col-9" style="padding-right: 50px; padding-left: 50px;">
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="new" name="status" value="new"
+                                        <input type="radio" id="new" name="status" value="New"
                                             class="custom-control-input">
                                         <label class="custom-control-label" for="new">New</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="inProgress" name="status" value="inProgress"
-                                            class="custom-control-input">
+                                        <input type="radio" id="inProgress" name="status" value="In Progress"
+                                            class="custom-control-input" disabled>
                                         <label class="custom-control-label" for="inProgress">In Progress</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="resolved" name="status" value="resolved"
-                                            class="custom-control-input">
+                                        <input type="radio" id="resolved" name="status" value="Resolved"
+                                            class="custom-control-input" disabled>
                                         <label class="custom-control-label" for="resolved">Resolved</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="feedback" name="status" value="feedback"
-                                            class="custom-control-input">
+                                        <input type="radio" id="feedback" name="status" value="Feedback"
+                                            class="custom-control-input" disabled>
                                         <label class="custom-control-label" for="feedback">Feedback</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="closed" name="status" value="closed"
-                                            class="custom-control-input">
+                                        <input type="radio" id="closed" name="status" value="Closed"
+                                            class="custom-control-input" disabled>
                                         <label class="custom-control-label" for="closed">Closed</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="rejected" name="status" value="rejected"
-                                            class="custom-control-input">
+                                        <input type="radio" id="rejected" name="status" value="Rejected"
+                                            class="custom-control-input" disabled>
                                         <label class="custom-control-label" for="rejected">Rejected</label>
                                     </div>
                                 </div>
@@ -119,22 +120,22 @@
                             <div class="col-9" style="padding-right: 50px; padding-left: 50px;">
                                 <div class="form-group">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="normal" name="priority" value="normal"
+                                        <input type="radio" id="normal" name="priority" value="Normal"
                                             class="custom-control-input">
                                         <label class="custom-control-label" for="normal">Normal</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="high" name="priority" value="high"
+                                        <input type="radio" id="high" name="priority" value="High"
                                             class="custom-control-input">
                                         <label class="custom-control-label" for="high">High</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="urgent" name="priority" value="urgent"
+                                        <input type="radio" id="urgent" name="priority" value="Urgent"
                                             class="custom-control-input">
                                         <label class="custom-control-label" for="urgent">Urgent</label>
                                     </div>
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="immediate" name="priority" value="immediate"
+                                        <input type="radio" id="immediate" name="priority" value="Immediate"
                                             class="custom-control-input">
                                         <label class="custom-control-label" for="immediate">Immediate</label>
                                     </div>
@@ -232,13 +233,13 @@
                         <div class="row">
                             <div class="col" style="padding-left: 50px;">
                                 <label class="form-check-label" for="files">
-                                    Files
+                                    File
                                 </label>
                             </div>
                             <div class="col-9" style="padding-right: 50px; padding-left: 50px;">
                                 <div class="input-group mb-3">
                                     <div class="custom-file">
-                                        <input type="file" name="files" class="custom-file-input" id="files">
+                                        <input type="file" name="file" class="custom-file-input" id="file">
                                         <label class="custom-file-label" for="inputFile">Choose file</label>
                                     </div>
                                 </div>

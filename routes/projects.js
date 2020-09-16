@@ -3,7 +3,6 @@ var router = express.Router();
 var helpers = require('../helpers/util');
 var path = require('path')
 var moment = require('moment')
-const { Router } = require('express');
 
 let checkOption = {
     id: true,
@@ -20,9 +19,15 @@ let memberOption = {
 let issueOption = {
     checkColId: true,
     checkColSubject: true,
-    checkColTracker: true
+    checkColTracker: true,
+    checkColDescription: true,
+    checkColStatus: true,
+    checkColPriority: true,
+    checkColStartDate: true,
+    checkColDueDate: true,
+    checkColEstimatedTime: true,
+    checkColDone: true
 }
-
 
 /* GET home page. */
 module.exports = (db) => {
@@ -87,6 +92,7 @@ module.exports = (db) => {
                     res.render('projects/view', {
                         link,
                         url,
+                        user,
                         page,
                         pages,
                         hasil: dataProject.rows,
@@ -100,8 +106,6 @@ module.exports = (db) => {
     });
 
     router.post('/option', helpers.isLoggedIn, (req, res) => {
-        console.log('test')
-
         checkOption.id = req.body.checkColId;
         checkOption.name = req.body.checkColName;
         checkOption.member = req.body.checkColMembers;
@@ -117,7 +121,7 @@ module.exports = (db) => {
             res.render('projects/add', {
                 link,
                 data: data.rows,
-                login: req.session.user
+                user: req.session.user
             })
         })
     });
@@ -130,9 +134,8 @@ module.exports = (db) => {
                 return res.send(err)
             } else {
                 db.query('SELECT projectid FROM projects ORDER BY projectid desc limit 1', (err, projectid) => {
-                    if (err) {
-                        return res.send(err)
-                    }
+                    if (err) return res.send(err)
+
                     let data = projectid.rows[0]
                     let id = data.projectid;
                     let temp = [];
@@ -155,23 +158,16 @@ module.exports = (db) => {
         let sqlMember = `SELECT members.userid, projects.name, projects.projectid FROM members 
                         LEFT JOIN projects ON members.projectid = projects.projectid WHERE projects.projectid = ${id}`
 
-
         db.query(sql, (err, data) => {
-            if (err) {
-                return res.send(err);
-            }
+            if (err) return res.send(err)
 
             let projectName = data.rows[0];
             db.query(fullName, (err, member) => {
-                if (err) {
-                    return res.send(err);
-                }
+                if (err) return res.send(err)
 
                 let members = member.rows;
                 db.query(sqlMember, (err, membersData) => {
-                    if (err) {
-                        return res.send(err)
-                    }
+                    if (err) return res.send(err)
 
                     let dataMember = membersData.rows.map(item => item.userid)
                     res.render('projects/edit', {
@@ -199,18 +195,12 @@ module.exports = (db) => {
         if (projectid && editProjectName && editMembers) {
 
             db.query(sqlProjectName, (err) => {
-                if (err) return res.status(500).json({
-                    error: true,
-                    message: err
-                })
+                if (err) return res.send(err)
 
                 let sqlDeleteMember = `DELETE FROM members WHERE projectid = ${projectid}`
 
                 db.query(sqlDeleteMember, (err) => {
-                    if (err) return res.status(500).json({
-                        error: true,
-                        message: err
-                    })
+                    if (err) return res.send(err)
 
                     let result = [];
 
@@ -225,10 +215,8 @@ module.exports = (db) => {
                     let sqlUpdate = `INSERT INTO members (userid, projectid) VALUES ${result.join(",")}`
 
                     db.query(sqlUpdate, (err) => {
-                        if (err) return res.status(500).json({
-                            error: true,
-                            message: err
-                        })
+                        if (err) return res.send(err)
+
                         res.redirect('/projects')
                     })
                 })
@@ -242,14 +230,12 @@ module.exports = (db) => {
         const id = parseInt(req.params.projectid)
         let memberData = `DELETE FROM members WHERE projectid = ${id}`;
         db.query(memberData, (err) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
+            
             let projectData = `DELETE FROM projects WHERE projectid = ${id}`;
             db.query(projectData, (err) => {
-                if (err) {
-                    return res.send(err)
-                }
+                if (err) return res.send(err)
+                
                 res.redirect('/projects')
             })
         })
@@ -264,15 +250,13 @@ module.exports = (db) => {
         let sqlProject = `SELECT * FROM projects WHERE projectid = ${id}`
 
         db.query(sqlProject, (err, dataProject) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
+            
             let sqlMember = `SELECT users.firstname, users.lastname, members.role FROM members
                             LEFT JOIN users ON members.userid = users.userid WHERE members.projectid = ${id}`
             db.query(sqlMember, (err, dataMember) => {
-                if (err) {
-                    return res.send(err)
-                }
+                if (err) return res.send(err)
+                
                 let sqlIssue = `SELECT tracker, status FROM issues WHERE projectid = ${id}`
                 db.query(sqlIssue, (err, dataIssue) => {
                     if (err) return res.send(err)
@@ -335,9 +319,7 @@ module.exports = (db) => {
 
         let sqlProject = `SELECT * FROM projects WHERE projectid = ${id}`
         db.query(sqlProject, (err, dataProject) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
             let project = dataProject.rows[0];
             let sqlActivity = `SELECT activity.*, CONCAT(users.firstname,' ',users.lastname) AS authorname,
                                (time AT TIME ZONE 'Asia/Jakarta'):: time AS timeactivity, 
@@ -353,7 +335,7 @@ module.exports = (db) => {
                 activity.forEach(item => {
                     item.dateactivity = moment(item.dateactivity).format('YYYY-MM-DD')
                     item.timeactivity = moment(item.timeactivity, 'HH:mm:ss.SSS').format('HH:mm');
-                    console.log(item.dateactivity)
+
                     if (item.dateactivity == moment().format('YYYY-MM-DD')) {
                         item.dateactivity = 'Today'
                     } else if (item.dateactivity == moment().subtract(1, 'days').format('YYYY-MM-DD')) {
@@ -403,9 +385,7 @@ module.exports = (db) => {
         sql += `) AS member`
 
         db.query(sql, (err, totalData) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
 
             const pageUrl = (req.url == `/${id}/members`) ? `/${id}/members/?page=1` : req.url;
             const page = req.query.page || 1;
@@ -428,14 +408,12 @@ module.exports = (db) => {
             sqlMember += ` LIMIT ${limit} OFFSET ${offset}`
 
             db.query(sqlMember, (err, dataMember) => {
-                if (err) {
-                    return res.send(err)
-                }
+                if (err) return res.send(err)
+                
                 let sqlProjects = `SELECT * FROM projects WHERE projectid = ${id}`
                 db.query(sqlProjects, (err, dataProject) => {
-                    if (err) {
-                        return res.send(err)
-                    }
+                    if (err) return res.send(err)
+                    
                     res.render('projects/members/view', {
                         id,
                         url,
@@ -468,14 +446,12 @@ module.exports = (db) => {
         const url = 'members'
         let sqlProjects = `SELECT * FROM projects WHERE projectid = ${id}`
         db.query(sqlProjects, (err, dataProject) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
+            
             let sqlMembers = `SELECT userid, CONCAT(firstname, ' ', lastname) AS fullname FROM users WHERE userid NOT IN (SELECT userid FROM members WHERE projectid = ${id})`
             db.query(sqlMembers, (err, dataMember) => {
-                if (err) {
-                    return res.send(err)
-                }
+                if (err) return res.send(err)
+                
                 res.render('projects/members/add', {
                     id,
                     link,
@@ -491,9 +467,8 @@ module.exports = (db) => {
     router.post('/members/:projectid/add', helpers.isLoggedIn, function (req, res, next) {
         const id = req.params.projectid;
         db.query(`INSERT INTO members(userid, role, projectid) VALUES ($1, $2, $3)`, [req.body.addMemberName, req.body.position, id], (err) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
+            
             res.redirect(`/projects/members/${id}`)
         })
     });
@@ -507,14 +482,12 @@ module.exports = (db) => {
                          LEFT JOIN users ON members.userid = users.userid WHERE projectid = ${projectid} AND id = ${id}`
 
         db.query(sqlMember, (err, dataMember) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
+            
             let sqlProjects = `SELECT * FROM projects WHERE projectid = ${projectid}`
             db.query(sqlProjects, (err, dataProject) => {
-                if (err) {
-                    return res.send(err)
-                }
+                if (err) return res.send(err)
+                
                 res.render('projects/members/edit', {
                     id,
                     link,
@@ -534,9 +507,8 @@ module.exports = (db) => {
         let position = req.body.editPosition
 
         db.query(`UPDATE members SET role = '${position}' WHERE id = ${id}`, (err) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
+            
             res.redirect(`/projects/members/${projectid}`)
         })
     });
@@ -546,9 +518,8 @@ module.exports = (db) => {
         let id = req.params.id;
 
         db.query(`DELETE FROM members WHERE projectid = ${projectid} AND id = ${id}`, (err) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
+            
             res.redirect(`/projects/members/${projectid}`)
         })
     });
@@ -583,14 +554,12 @@ module.exports = (db) => {
         let sqlTotal = `SELECT COUNT(issueid) AS total FROM issues WHERE projectid = ${id} ${search}`
 
         db.query(sql, (err, dataProject) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
+            
             let project = dataProject.rows[0];
             db.query(sqlTotal, (err, totalData) => {
-                if (err) {
-                    return res.send(err)
-                }
+                if (err) return res.send(err)
+                
                 let total = totalData.rows[0].total;
 
                 const pageUrl = req.url == `/${id}/issues` ? `/${id}/issues/?page=1` : req.url;
@@ -605,18 +574,15 @@ module.exports = (db) => {
                                 ORDER BY issues.issueid ASC LIMIT ${limit} OFFSET ${offset}`
 
                 db.query(sqlIssue, (err, dataIssue) => {
-                    if (err) {
-                        return res.send(err)
-                    }
+                    if (err) return res.send(err)
+                    
                     let issues = dataIssue.rows
-
                     let dataAssignee = `SELECT users.userid, CONCAT(firstname, ' ', lastname) AS fullname FROM members
                                        LEFT JOIN users ON members.userid = users.userid WHERE projectid = ${id}`
 
                     db.query(dataAssignee, (err, assigneeData) => {
-                        if (err) {
-                            return res.send(err)
-                        }
+                        if (err) return res.send(err)
+                        
                         let assignee = assigneeData.rows
                         res.render('projects/issues/view', {
                             project,
@@ -637,12 +603,19 @@ module.exports = (db) => {
         })
     });
 
-    router.post('/:projectid/issues', helpers.isLoggedIn, (req, res) => {
+    router.post('/issues/:projectid', helpers.isLoggedIn, (req, res) => {
         const id = req.params.projectid
 
         issueOption.checkId = req.body.checkColId
         issueOption.checkSubject = req.body.checkColSubject
-        issueOption.checkTracjer = req.body.checkColTracker
+        issueOption.checkTracker = req.body.checkColTracker
+        issueOption.checkDescription = req.body.checkColDescription
+        issueOption.checkStatus = req.body.checkColStatus
+        issueOption.checkPriority = req.body.checkColPriority
+        issueOption.checkStartDate = req.body.checkColStartDate
+        issueOption.checkDueDate = req.body.checkColDueDate
+        issueOption.checkEstimatedTime = req.body.checkColEstimatedTime
+        issueOption.checkDone = req.body.checkColDone
 
         res.redirect(`/projects/issues/${id}`)
     })
@@ -654,15 +627,13 @@ module.exports = (db) => {
 
         let sql = `SELECT * FROM projects WHERE projectid = ${id}`;
         db.query(sql, (err, dataProject) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
+            
             let sqlMembers = `SELECT users.userid, CONCAT(users.firstname, ' ', users.lastname) AS fullname FROM members
                               LEFT JOIN users ON members.userid = users.userid WHERE projectid = ${id}`
             db.query(sqlMembers, (err, dataMember) => {
-                if (err) {
-                    return res.send(err)
-                }
+                if (err) return res.send(err)
+                
                 res.render('projects/issues/add', {
                     id,
                     link,
@@ -678,21 +649,17 @@ module.exports = (db) => {
     router.post('/issues/:projectid/add', helpers.isLoggedIn, function (req, res, next) {
         let id = parseInt(req.params.projectid)
         let user = req.session.user
-
         let file = req.files.file;
         let filename = file.name.toLowerCase().replace('', Date.now()).split(' ').join('-');
         let sql = `INSERT INTO issues(projectid, tracker, subject, description, status, priority, assignee, startdate, duedate, estimatedtime, done, files, author, createddate)
                   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, NOW())`
-        let value = [id, req.body.tracker, req.body.subjectIssue, req.body.description, req.body.status, req.body.priority, parseInt(req.body.assignee), req.body.startDate, req.body.dueDate, parseInt(req.body.estimatedTime), parseInt(req.body.done), filename, user.userid]
+        let value = [id, req.body.tracker, req.body.subject, req.body.description, req.body.status, req.body.priority, parseInt(req.body.assignee), req.body.startDate, req.body.dueDate, parseInt(req.body.estimatedTime), parseInt(req.body.done), filename, user.userid]
 
         db.query(sql, value, (err) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
             file.mv(path.join(__dirname, '..', 'public', 'upload', filename), (err) => {
-                if (err) {
-                    return res.send(err)
-                }
+                if (err) return res.send(err)
+                
                 res.redirect(`/projects/issues/${id}`)
             })
         })
@@ -700,35 +667,30 @@ module.exports = (db) => {
 
     router.get('/issues/:projectid/edit/:issueid', helpers.isLoggedIn, function (req, res, next) {
         let id = req.params.projectid;
-        let issueid = req.params.id;
+        let issueid = req.params.issueid;
         let link = 'projects';
         let url = 'issues'
 
         let sqlProject = `SELECT * FROM projects WHERE projectid = ${id}`;
         db.query(sqlProject, (err, dataProject) => {
-            if (err) {
-                return res.send(err)
-            }
+            
+            if (err) return res.send(err)
             let sqlIssue = `SELECT issues.*, CONCAT(users.firstname, ' ', users.lastname) AS authorname FROM issues
-                            LEFT JOIN users ON  issues.author = users.userid WHERE projectid = ${id} AND issueid = ${issueid}`;
+                            LEFT JOIN users ON issues.author = users.userid WHERE projectid = ${id} AND issueid = ${issueid}`;
 
             db.query(sqlIssue, (err, dataIssue) => {
-                if (err) {
-                    return res.send(err)
-                }
+                
+                if (err) return res.send(err)
+
                 let sqlMembers = `SELECT users.userid, CONCAT(users.firstname, ' ', users.lastname) AS fullname FROM members
                                   LEFT JOIN users ON members.userid = users.userid WHERE projectid = ${id}`
 
                 db.query(sqlMembers, (err, dataMember) => {
-                    if (err) {
-                        return res.send(err)
-                    }
+                    if (err) return res.send(err)
                     let sqlParent = `SELECT subject, tracker, issueid FROM issues WHERE projectid = ${id}`
 
                     db.query(sqlParent, (err, dataParent) => {
-                        if (err) {
-                            return res.send(err)
-                        }
+                        if (err) return res.send(err)
                         res.render('projects/issues/edit', {
                             id,
                             link,
@@ -748,11 +710,11 @@ module.exports = (db) => {
 
     router.post('/issues/:projectid/edit/:issueid', helpers.isLoggedIn, function (req, res, next) {
         let id = parseInt(req.params.projectid);
-        let issueid = parseInt(req.params.id);
+        let issueid = parseInt(req.params.issueid);
         let formEdit = req.body;
         let user = req.session.user;
 
-        let title = `${formEdit.subjectIssue}#${issueid}(${formEdit.tracker}):${formEdit.description}`
+        let title = `${formEdit.subject}#${issueid}(${formEdit.tracker}):${formEdit.description}`
         let sqlActivity = `INSERT INTO activity (time, title, description, author, projectid)
                            VALUES(NOW(), $1, $2, $3, $4)`
         let value = [title, formEdit.description, user.userid, id]
@@ -764,18 +726,16 @@ module.exports = (db) => {
                              assignee = $5, duedate = $6, done = $7, parenttask = $8, spenttime = $9, 
                              targetversion = $10, files = $11, updateddate = $12 ${formEdit.status == 'closed' ? `, closeddate = NOW() ` : " "} 
                              WHERE issueid = $13`
-            let values = [formEdit.subjectIssue, formEdit.description, formEdit.status, formEdit.priority,
+            let value = [formEdit.subject, formEdit.description, formEdit.status, formEdit.priority,
             parseInt(formEdit.assignee), formEdit.dueDate, parseInt(formEdit.done), parseInt(formEdit.parenttask),
             parseInt(formEdit.spenttime), formEdit.target, filename, 'NOW()', issueid]
 
-            db.query(sqlUpdate, values, (err) => {
-                if (err) {
-                    return res.send(err)
-                }
+            db.query(sqlUpdate, value, (err) => {
+                if (err) return res.send(err)
+
                 file.mv(path.join(__dirname, "..", "public", "upload", filename), (err) => {
-                    if (err) {
-                        return res.send(err)
-                    }
+                    if (err) return res.send(err)
+                    
                     db.query(sqlActivity, value, (err) => {
                         if (err) return res.send(err)
                         res.redirect(`/projects/issues/${id}`)
@@ -784,11 +744,10 @@ module.exports = (db) => {
             })
         } else {
             let sqlUpdate = `UPDATE issues SET subject = $1, description = $2, status = $3, priority = $4, assignee = $5, duedate = $6, done = $7, parenttask = $8, spenttime = $9, targetversion = $10, updateddate = $11 ${formEdit.status == 'closed' ? `, closeddate = NOW() ` : " "} WHERE issueid = $12`
-            let values = [formEdit.subjectIssue, formEdit.description, formEdit.status, formEdit.priority, parseInt(formEdit.assignee), formEdit.dueDate, parseInt(formEdit.done), parseInt(formEdit.perenttask), parseInt(formEdit.spenttime), formEdit.target, 'NOW()', issueid]
-            db.query(sqlUpdate, values, (err) => {
-                if (err) {
-                    return res.send(err)
-                }
+            let value = [formEdit.subject, formEdit.description, formEdit.status, formEdit.priority, parseInt(formEdit.assignee), formEdit.dueDate, parseInt(formEdit.done), parseInt(formEdit.parenttask), parseInt(formEdit.spenttime), formEdit.target, 'NOW()', issueid]
+            db.query(sqlUpdate, value, (err) => {
+                if (err) return res.send(err)
+                
                 res.redirect(`/projects/issues/${id}`)
             })
         }
@@ -796,13 +755,11 @@ module.exports = (db) => {
 
     router.get('/issues/:projectid/delete/:issueid', helpers.isLoggedIn, function (req, res, next) {
         let id = req.params.projectid;
-        let issueid = req.params.id;
+        let issueid = req.params.issueid;
 
         let sqlDelete = `DELETE FROM issues WHERE projectid = $1 AND issueid = $2`
         db.query(sqlDelete, [id, issueid], (err) => {
-            if (err) {
-                return res.send(err)
-            }
+            if (err) return res.send(err)
             res.redirect(`/projects/issues/${id}`)
         })
     });

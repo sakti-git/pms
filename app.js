@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var session = require('express-session');
 var flash = require('connect-flash');
+const fileUpload = require('express-fileupload');
 
 const { Pool } = require('pg');
 
@@ -19,7 +20,7 @@ const pool = new Pool({
 var indexRouter = require('./routes/index')(pool);
 var projectsRouter = require('./routes/projects')(pool);
 var profileRouter = require('./routes/profile')(pool);
-var usersRouter = require('./routes/users');
+var usersRouter = require('./routes/users')(pool);
 
 var app = express();
 
@@ -36,6 +37,7 @@ app.use(session({
   secret: 'rahasia'
 }))
 app.use(flash());
+app.use(fileUpload())
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

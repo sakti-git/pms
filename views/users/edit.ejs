@@ -3,11 +3,27 @@
 <form action="" id="form-filter" method="POST"
     style="padding-top: 20px; padding-bottom: 10px; padding-right: 200px; padding-left: 200px;">
     <div class="card">
-        <div class="card-header" style="background-color:wheat;">
-            <h2>Add User</h2>
+        <div class="card-header" style="background-color: wheat;">
+            <h2>Edit User</h2>
         </div>
 
-        <div class="card-body" style="background-color:burlywood">
+        <div class="card-body" style="background-color: burlywood;">
+
+            <div class="row">
+                <div class="col" style="padding-left: 100px;">
+                    <div class="form-check">
+                        <label class="form-check-label" for="id">
+                            User ID
+                        </label>
+                    </div>
+                </div>
+                <div class="col-9" style="padding-right: 170px;">
+                    <div class="form-group">
+                        <input type="text" name="id" class="form-control" id="id" value="<%= dataUser.userid%>"
+                            readonly>
+                    </div>
+                </div>
+            </div>
 
             <div class="row">
                 <div class="col" style="padding-left: 100px;">
@@ -19,8 +35,8 @@
                 </div>
                 <div class="col-9" style="padding-right: 170px;">
                     <div class="form-group">
-                        <input type="text" name="firstName" class="form-control" id="firstName"
-                            placeholder="Input First Name">
+                        <input type="text" name="firstName" class="form-control" id="FirstName"
+                            value="<%= dataUser.firstname%>" required>
                     </div>
                 </div>
             </div>
@@ -36,7 +52,7 @@
                 <div class="col-9" style="padding-right: 170px;">
                     <div class="form-group">
                         <input type="text" name="lastName" class="form-control" id="lastName"
-                            placeholder="Input Last Name">
+                            value="<%= dataUser.lastname%>" required>
                     </div>
                 </div>
             </div>
@@ -51,7 +67,8 @@
                 </div>
                 <div class="col-9" style="padding-right: 170px;">
                     <div class="form-group">
-                        <input type="text" name="email" class="form-control" id="email" placeholder="Input Email">
+                        <input type="text" name="email" class="form-control" id="email" value="<%= dataUser.email%>"
+                            readonly>
                     </div>
                 </div>
             </div>
@@ -66,8 +83,7 @@
                 </div>
                 <div class="col-9" style="padding-right: 170px;">
                     <div class="form-group">
-                        <input type="text" name="password" class="form-control" id="password"
-                            placeholder="Input Password">
+                        <input type="text" name="password" class="form-control" id="password" value="" required>
                     </div>
                 </div>
             </div>
@@ -80,20 +96,22 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-9" style="padding-right: 200px;">
+                <div class="col-9">
                     <div class="form-group">
                         <div class="custom-control custom-radio">
                             <input type="radio" id="manager" name="position" value="Manager"
-                                class="custom-control-input">
+                                <%= dataUser.position == 'Manager' ? 'checked' : '' %> class="custom-control-input">
                             <label class="custom-control-label" for="manager">Manager</label>
                         </div>
                         <div class="custom-control custom-radio">
                             <input type="radio" id="softDev" name="position" value="Software Developer"
+                                <%= dataUser.position == 'Software Developer' ? 'checked' : '' %>
                                 class="custom-control-input">
                             <label class="custom-control-label" for="softDev">Software Developer</label>
                         </div>
                         <div class="custom-control custom-radio">
                             <input type="radio" id="qa" name="position" value="Quality Assurance"
+                                <%= dataUser.position == 'Quality Assurance' ? 'checked' : '' %>
                                 class="custom-control-input">
                             <label class="custom-control-label" for="qa">Quality Assurance</label>
                         </div>
@@ -104,22 +122,22 @@
             <div class="row">
                 <div class="col" style="padding-left: 100px;">
                     <div class="form-check">
-                        <label class="form-check-label" for="type">
-                            Type
+                        <label class="form-check-label" for="contract">
+                            Contract
                         </label>
                     </div>
                 </div>
-                <div class="col-9" style="padding-right: 200px;">
+                <div class="col-9">
                     <div class="form-group">
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="fulltime" name="contract" value="Fulltime"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="fulltime">Full Time Contract</label>
+                            <input type="radio" id="fullTime" name="type" value="Fulltime" 
+                                class="custom-control-input" <%= dataUser.contract == 'Fulltime' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="fullTime">Full Time Contract</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="parttime" name="contract" value="Parttime"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="parttime">Part Time Contract</label>
+                            <input type="radio" id="partTime" name="type" value="Parttime"
+                                class="custom-control-input" <%= dataUser.contract == 'Parttime' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="partTime">Part Time Contract</label>
                         </div>
                     </div>
                 </div>
@@ -133,16 +151,16 @@
                         </label>
                     </div>
                 </div>
-                <div class="col-9" style="padding-right: 200px;">
+                <div class="col-9">
                     <div class="form-group">
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="admin" name="role" value="Admin"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="fulltime">Admin</label>
+                            <input type="radio" id="admin" name="role" value="Admin" 
+                                class="custom-control-input" <%= dataUser.role == 'Admin' ? 'checked' : '' %>>
+                            <label class="custom-control-label" for="admin">Admin</label>
                         </div>
                         <div class="custom-control custom-radio">
                             <input type="radio" id="user" name="role" value="User"
-                                class="custom-control-input">
+                                class="custom-control-input" <%= dataUser.role == 'User' ? 'checked' : '' %>>
                             <label class="custom-control-label" for="user">User</label>
                         </div>
                     </div>
@@ -150,13 +168,14 @@
             </div>
 
             <div class="col" style="padding-left: 100px; padding-top: 10px;">
-                <button type="submit" class="btn btn-primary">Save</button>
+                <button type="submit" class="btn btn-primary">Update</button>
                 <a href="/users" <button class="btn btn-warning">Back</button> </a>
             </div>
 
         </div>
 
     </div>
+
 </form>
 
 <% include ../partials/footer %>

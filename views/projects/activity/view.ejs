@@ -1,23 +1,24 @@
 <% include ../../partials/header %>
 
-<div class="row">
+<div class="d-flex" id="wrapper">
 
     <% include ../../partials/sidebar %>
 
-    <form action="" id="form-filter" method="GET" style="padding-inline: 50px;" class="col-10">
+    <form action="" id="form-filter" method="GET"
+        style="padding-top: 20px; padding-bottom: 10px; padding-right: 100px; padding-left: 100px; width: 100%;">
         <div class="card">
-            <div class="card-header">
-                <h2>Activity</h2>
+            <div class="card-header" style="background-color: wheat;">
+                <h1 style="text-align: center;">Activity</h1>
                 <hr>
 
-                <div class="card">
+                <div class="card" style="background-color: burlywood;">
                     <div class="card-body">
                         <p>Activity</p>
                         <% activity.forEach(item => {%>
                         <p><%= item.dateactivity %></p>
                         <ul>
                             <li>
-                                <%= item.timeactivity %> <%= item.title %>,author:<%= item.authorname %>
+                                <%= item.timeactivity %> <%= item.title %>, author: <%= item.authorname %>
                             </li>
                         </ul>
                         <%})%>

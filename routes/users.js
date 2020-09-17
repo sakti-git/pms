@@ -19,6 +19,7 @@ module.exports = (db) => {
     let link = 'users'
     let result = [];
     let search = ""
+
     if (req.query.checkId && req.query.id) {
       result.push(`userid = ${parseInt(req.query.id)}`)
     }
@@ -47,6 +48,7 @@ module.exports = (db) => {
 
     db.query(sqlUser, (err, dataUser) => {
       if (err) return res.send(err)
+
       let total = dataUser.rows[0].total
       const url = req.url == '/' ? '/?page=1' : req.url;
       const page = req.query.page || 1;
@@ -58,6 +60,7 @@ module.exports = (db) => {
 
       db.query(queryUser, (err, dataQuery) => {
         if (err) return res.send(err)
+
         res.render('users/view', {
           link,
           pages,
@@ -65,7 +68,7 @@ module.exports = (db) => {
           url,
           users: dataQuery.rows,
           option: checkOpt,
-          login: req.session.user
+          user: req.session.user
         })
       })
     })
@@ -86,7 +89,7 @@ module.exports = (db) => {
     const link = 'users';
     res.render('users/add', {
       link,
-      login: req.session.user
+      user: req.session.user
     })
   })
 
@@ -98,6 +101,7 @@ module.exports = (db) => {
       let values = [req.body.firstName, req.body.lastName, req.body.email, hash, req.body.position, req.body.type, req.body.role]
       db.query(data, values, (err) => {
         if (err) return res.send(err)
+
         res.redirect('/users')
       })
     })
@@ -107,14 +111,17 @@ module.exports = (db) => {
     let link = 'users';
     let id = req.params.id;
     let data = `SELECT * FROM users WHERE userid = ${id}`
+
     db.query(data, (err, sql) => {
       if (err) return res.send(err)
+
       res.render('users/edit', {
         link,
-        sql: sql.rows[0],
-        login: req.session.user
+        dataUser: sql.rows[0],
+        user: req.session.user
       })
     })
+
   })
 
   router.post('/edit/:id', helpers.isLoggedIn, (req, res) => {
@@ -127,6 +134,7 @@ module.exports = (db) => {
 
       db.query(sqlUpdate, values, (err) => {
         if (err) return res.send(err)
+
         res.redirect('/users')
       })
     })
@@ -138,6 +146,7 @@ module.exports = (db) => {
 
     db.query(deleteData, [id], (err) => {
       if (err) return res.send(err)
+
       res.redirect('/users')
     })
   })

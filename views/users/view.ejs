@@ -1,6 +1,6 @@
 <% include ../partials/header %>
 
-<h2 style="text-align: center; padding-top: 20px;">Dashboard User</h2>
+<h2 style="text-align: center; padding-top: 20px;">DASHBOARD USER</h2>
 
 <form action="" id="form-filter" method="GET"
     style="padding-top: 20px; padding-bottom: 10px; padding-right: 100px; padding-left: 100px;">
@@ -70,9 +70,9 @@
                     <div class="form-group">
                         <select name="position" id="position" class="custom-select custom-select">
                             <option selected disabled>Choose a position ...</option>
-
-                            <option value=""></option>
-
+                            <option value="Manager">Manager</option>
+                            <option value="Quality Assurance">Quality Assurance</option>
+                            <option value="Software Developer">Software Developer</option>
                         </select>
                     </div>
                 </div>
@@ -81,6 +81,7 @@
             <div class="row">
                 <div class="col" style="padding-left: 100px;">
                     <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="true" id="cekType" name="checkType">
                         <label class="form-check-label" for="type">
                             Contract Type
                         </label>
@@ -89,13 +90,11 @@
                 <div class="col-9" style="padding-right: 200px;">
                     <div class="form-group">
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="fulltime" name="contract" value="fulltime"
-                                class="custom-control-input">
+                            <input type="radio" id="fulltime" name="type" value="Fulltime" class="custom-control-input">
                             <label class="custom-control-label" for="fulltime">Full Time Contract</label>
                         </div>
                         <div class="custom-control custom-radio">
-                            <input type="radio" id="parttime" name="contract" value="parttime"
-                                class="custom-control-input">
+                            <input type="radio" id="parttime" name="type" value="Parttime" class="custom-control-input">
                             <label class="custom-control-label" for="parttime">Part Time Contract</label>
                         </div>
                     </div>
@@ -120,42 +119,42 @@
 
                 <div class="form-check form-check-inline" style="padding-left: 70px;">
                     <input class="form-check-input" type="checkbox" value="true" id="cekColId" name="checkColId"
-                        <%= checkOpt.id ? `checked` : `` %>>
+                        <%= option.id ? `checked` : `` %>>
                     <label class="form-check-label" for="id">
                         ID
                     </label>
                 </div>
                 <div class="form-check form-check-inline" style="padding-left: 20px;">
                     <input class="form-check-input" type="checkbox" value="true" id="cekColName" name="checkColName"
-                        <%= checkOpt.name ? `checked` : `` %>>
+                        <%= option.name ? `checked` : `` %>>
                     <label class="form-check-label" for="name">
                         Name
                     </label>
                 </div>
                 <div class="form-check form-check-inline" style="padding-left: 20px;">
                     <input class="form-check-input" type="checkbox" value="true" id="cekColPosition"
-                        name="checkColPosition" <%= checkOpt.position ? `checked` : `` %>>
+                        name="checkColPosition" <%= option.position ? `checked` : `` %>>
                     <label class="form-check-label" for="position">
                         Position
                     </label>
                 </div>
                 <div class="form-check form-check-inline" style="padding-left: 20px;">
                     <input class="form-check-input" type="checkbox" value="true" id="cekColEmail" name="checkColEmail"
-                        <%= checkOpt.email ? `checked` : `` %>>
+                        <%= option.email ? `checked` : `` %>>
                     <label class="form-check-label" for="email">
                         Email
                     </label>
                 </div>
                 <div class="form-check form-check-inline" style="padding-left: 20px;">
                     <input class="form-check-input" type="checkbox" value="true" id="cekColType" name="checkColType"
-                        <%= checkOpt.type ? `checked` : `` %>>
+                        <%= option.type ? `checked` : `` %>>
                     <label class="form-check-label" for="email">
                         Contract
                     </label>
                 </div>
                 <div class="form-check form-check-inline" style="padding-left: 20px;">
                     <input class="form-check-input" type="checkbox" value="true" id="cekColRole" name="checkColRole"
-                        <%= checkOpt.role ? `checked` : `` %>>
+                        <%= option.role ? `checked` : `` %>>
                     <label class="form-check-label" for="email">
                         Role
                     </label>
@@ -170,26 +169,27 @@
             <table class="table table-hover" style="border-style: solid;">
                 <thead class="thead-dark">
                     <tr>
-                        <th <%= checkOpt.id ? `` : `hidden` %>>ID</th>
-                        <th <%= checkOpt.name ? `` : `hidden` %>>Name</th>
-                        <th <%= checkOpt.position ? `` : `hidden` %>>Position</th>
-                        <th <%= checkOpt.email ? `` : `hidden` %>>Email</th>
-                        <th <%= checkOpt.type ? `` : `hidden` %>>Contract</th>
-                        <th <%= checkOpt.role ? `` : `hidden` %>>Role</th>
+                        <th <%= option.id ? `` : `hidden` %>>ID</th>
+                        <th <%= option.name ? `` : `hidden` %>>Name</th>
+                        <th <%= option.position ? `` : `hidden` %>>Position</th>
+                        <th <%= option.email ? `` : `hidden` %>>Email</th>
+                        <th <%= option.type ? `` : `hidden` %>>Contract</th>
+                        <th <%= option.role ? `` : `hidden` %>>Role</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <% users.forEach(item => { %>
                 <tbody>
                     <tr>
-                        <td <%= checkOpt.id ? `` : `hidden` %>><%= item.userid %></a></td>
-                        <td <%= checkOpt.name ? `` : `hidden` %>><%= item.fullname %></td>
-                        <td <%= checkOpt.position ? `` : `hidden` %>><%= item.email %></td>
-                        <td <%= checkOpt.email ? `` : `hidden` %>><%= item.position %></td>
-                        <td <%= checkOpt.type ? `` : `hidden` %>><%= item.contract %></td>
-                        <td <%= checkOpt.role ? `` : `hidden` %>><%= item.role %></td>
+                        <td <%= option.id ? `` : `hidden` %>><%= item.userid %></a></td>
+                        <td <%= option.name ? `` : `hidden` %>><%= item.fullname %></td>
+                        <td <%= option.position ? `` : `hidden` %>><%= item.email %></td>
+                        <td <%= option.email ? `` : `hidden` %>><%= item.position %></td>
+                        <td <%= option.type ? `` : `hidden` %>><%= item.contract %></td>
+                        <td <%= option.role ? `` : `hidden` %>><%= item.role %></td>
                         <td>
-                            <button class="btn btn-success"><a href="/users/edit/<%= item.userid %>" style="color: white;">
+                            <button class="btn btn-success"><a href="/users/edit/<%= item.userid %>"
+                                    style="color: white;">
                                     Edit
                                 </a>
                             </button>

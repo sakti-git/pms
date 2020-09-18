@@ -33,9 +33,9 @@
                 <li class="nav-item <%= link == 'profile' ? 'active' : '' %>">
                     <a class="nav-link" href="/profile">Profile<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item <%= link == 'users' ? 'active' : '' %>">
-                    <a class="nav-link <%= user.role == 'User' ? 'hidden' : '' %>" href="/users">User<span
-                            class="sr-only">(current)</span></a>
+                <li class="nav-item <%= link == 'users' ? 'active' : '' %>"
+                    <%= user.role == 'User' ? 'hidden' : '' %>>
+                    <a class="nav-link" href="/users">User<span class="sr-only">(current)</span></a>
                 </li>
             </ul>
             <a href="/logout"><button class="btn btn-outline-success tombol sign-out my-2 my-sm-0">Sign Out</button></a>

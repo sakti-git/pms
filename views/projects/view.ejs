@@ -129,9 +129,9 @@
                                     Edit
                                 </a>
                             </button>
-                            <button class="btn btn-danger" onclick="return confirm('Are you sure want to DELETE ?')"><a
+                            <button class="btn btn-danger" onclick="return confirm('Are you sure want to DELETE ?')" <%= user.role == 'User' ? 'hidden' : '' %>><a
                                     href="/projects/delete/<%=item.projectid%>" style="color: white;"
-                                    <%= user.as == 'user' ? 'hidden' : '' %>>
+                                    >
                                     Delete
                                 </a>
                             </button>

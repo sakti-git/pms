@@ -717,8 +717,8 @@ module.exports = (db) => {
         let user = req.session.user;
 
         let title = `${formEdit.subject}#${issueid}(${formEdit.tracker}):${formEdit.description}`
-        let sqlActivity = `INSERT INTO activity (time, title, description, author, projectid)
-                           VALUES(NOW(), $1, $2, $3, $4)`
+        let sqlActivity = `INSERT INTO activity(time, title, description, author, projectid)
+                           VALUES (NOW(), $1, $2, $3, $4)`
         let value = [title, formEdit.description, user.userid, id]
 
         if (req.files) {
@@ -726,13 +726,13 @@ module.exports = (db) => {
             let filename = file.name.toLowerCase().replace("", Date.now()).split(" ").join("-")
             let sqlUpdate = `UPDATE issues SET subject = $1, description = $2, status = $3, priority = $4, 
                              assignee = $5, duedate = $6, done = $7, parenttask = $8, spenttime = $9, 
-                             targetversion = $10, files = $11, updateddate = $12 ${formEdit.status == 'closed' ? `, closeddate = NOW() ` : " "} 
+                             targetversion = $10, files = $11, updateddate = $12 ${formEdit.status == 'Closed' ? `, closeddate = NOW() ` : " "} 
                              WHERE issueid = $13`
-            let value = [formEdit.subject, formEdit.description, formEdit.status, formEdit.priority,
+            let values = [formEdit.subject, formEdit.description, formEdit.status, formEdit.priority,
             parseInt(formEdit.assignee), formEdit.dueDate, parseInt(formEdit.done), parseInt(formEdit.parenttask),
             parseInt(formEdit.spenttime), formEdit.target, filename, 'NOW()', issueid]
 
-            db.query(sqlUpdate, value, (err) => {
+            db.query(sqlUpdate, values, (err) => {
                 if (err) return res.send(err)
 
                 file.mv(path.join(__dirname, "..", "public", "upload", filename), (err) => {
@@ -740,14 +740,15 @@ module.exports = (db) => {
 
                     db.query(sqlActivity, value, (err) => {
                         if (err) return res.send(err)
+                        
                         res.redirect(`/projects/issues/${id}`)
                     })
                 })
             })
         } else {
             let sqlUpdate = `UPDATE issues SET subject = $1, description = $2, status = $3, priority = $4, assignee = $5, duedate = $6, done = $7, parenttask = $8, spenttime = $9, targetversion = $10, updateddate = $11 ${formEdit.status == 'closed' ? `, closeddate = NOW() ` : " "} WHERE issueid = $12`
-            let value = [formEdit.subject, formEdit.description, formEdit.status, formEdit.priority, parseInt(formEdit.assignee), formEdit.dueDate, parseInt(formEdit.done), parseInt(formEdit.parenttask), parseInt(formEdit.spenttime), formEdit.target, 'NOW()', issueid]
-            db.query(sqlUpdate, value, (err) => {
+            let values = [formEdit.subject, formEdit.description, formEdit.status, formEdit.priority, parseInt(formEdit.assignee), formEdit.dueDate, parseInt(formEdit.done), parseInt(formEdit.parenttask), parseInt(formEdit.spenttime), formEdit.target, 'NOW()', issueid]
+            db.query(sqlUpdate, values, (err) => {
                 if (err) return res.send(err)
 
                 res.redirect(`/projects/issues/${id}`)
